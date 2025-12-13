@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssignHub - System Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-btn.active { border-bottom-color: #4f46e5; color: #4f46e5; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50">
+
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-slate-100 z-50 transform transition-transform duration-300 -translate-x-full lg:translate-x-0">
+        <div class="flex flex-col h-full">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="shield" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-slate-800">AssignHub</span>
+                </div>
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-slate-100 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
+                </button>
+            </div>
+            <div class="p-4 mx-4 mt-4 bg-slate-50 rounded-xl">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">AD</div>
+                    <div>
+                        <p class="font-semibold text-slate-800">Admin User</p>
+                        <p class="text-xs text-slate-500">Administrator</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 p-4 overflow-y-auto">
+                <ul class="space-y-1">
+                    <li><a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span class="font-medium">Dashboard</span></a></li>
+                    <li><a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="users" class="w-5 h-5"></i><span class="font-medium">Users</span></a></li>
+                    <li><a href="courses.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="book-open" class="w-5 h-5"></i><span class="font-medium">Courses</span></a></li>
+                    <li><a href="settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-md shadow-indigo-500/20"><i data-lucide="settings" class="w-5 h-5"></i><span class="font-medium">Settings</span></a></li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-slate-100">
+                <a href="../auth.html" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all"><i data-lucide="log-out" class="w-5 h-5"></i><span class="font-medium">Logout</span></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-72">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="menu" class="w-5 h-5 text-slate-600"></i></button>
+                    <h1 class="text-xl font-bold text-slate-800">System Settings</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="relative p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="bell" class="w-5 h-5 text-slate-600"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <main class="p-6">
+            <div class="mb-6 animate-fade-in-up">
+                <h2 class="text-2xl font-bold text-slate-900 mb-1">System Settings</h2>
+                <p class="text-slate-600">Configure global system parameters and policies</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="flex border-b border-slate-100">
+                    <button onclick="switchTab('general')" class="tab-btn active px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="general">General</button>
+                    <button onclick="switchTab('submissions')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="submissions">Submissions</button>
+                    <button onclick="switchTab('notifications')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="notifications">Notifications</button>
+                    <button onclick="switchTab('security')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="security">Security</button>
+                </div>
+
+                <div class="p-6">
+                    <!-- General Tab -->
+                    <div id="general" class="tab-content active space-y-6">
+                        <div class="space-y-4">
+                            <h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                                <i data-lucide="globe" class="w-5 h-5"></i> General Settings
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label class="block text-sm font-medium text-slate-700 mb-1">Institution Name</label><input type="text" value="Dharmsinh Desai University" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"></div>
+                                <div><label class="block text-sm font-medium text-slate-700 mb-1">System Email</label><input type="email" value="assignhub@ddu.ac.in" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"></div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Current Academic Year</label>
+                                    <select class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                                        <option>2024-25</option>
+                                        <option>2025-26</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Current Semester</label>
+                                    <select class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                                        <option>Even (Jan-Jun)</option>
+                                        <option>Odd (Jul-Dec)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-red-50 rounded-xl border border-red-100">
+                            <div>
+                                <p class="font-medium text-red-800">Maintenance Mode</p>
+                                <p class="text-sm text-red-600">Temporarily disable access for non-admin users</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submissions Tab -->
+                    <div id="submissions" class="tab-content space-y-6">
+                        <div class="space-y-4">
+                            <h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                                <i data-lucide="upload" class="w-5 h-5"></i> Submission Policies
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label class="block text-sm font-medium text-slate-700 mb-1">Max File Size (MB)</label><input type="number" value="10" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"></div>
+                                <div><label class="block text-sm font-medium text-slate-700 mb-1">Allowed Formats</label><input type="text" value="PDF, DOCX, ZIP" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"></div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                                <div>
+                                    <p class="font-medium text-slate-900">Allow Late Submissions</p>
+                                    <p class="text-sm text-slate-500">Enable students to submit after deadline</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Tab -->
+                    <div id="notifications" class="tab-content space-y-6">
+                        <div class="space-y-4">
+                            <h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                                <i data-lucide="bell" class="w-5 h-5"></i> Notification Settings
+                            </h3>
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                                <div>
+                                    <p class="font-medium text-slate-900">Email Notifications</p>
+                                    <p class="text-sm text-slate-500">Send email alerts for important events</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                </label>
+                            </div>
+                            <div class="space-y-3 pl-4">
+                                <p class="font-medium text-slate-900 text-sm">Notify Users For:</p>
+                                <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded text-indigo-600"><span class="text-sm text-slate-600">New assignment posted</span></label>
+                                <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded text-indigo-600"><span class="text-sm text-slate-600">Assignment deadline approaching (24h)</span></label>
+                                <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded text-indigo-600"><span class="text-sm text-slate-600">Submission evaluated</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Tab -->
+                    <div id="security" class="tab-content space-y-6">
+                        <div class="space-y-4">
+                            <h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                                <i data-lucide="lock" class="w-5 h-5"></i> Security Settings
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label class="block text-sm font-medium text-slate-700 mb-1">Session Timeout (mins)</label><input type="number" value="60" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"></div>
+                                <div><label class="block text-sm font-medium text-slate-700 mb-1">Max Login Attempts</label><input type="number" value="5" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"></div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                                <div>
+                                    <p class="font-medium text-slate-900">Two-Factor Authentication</p>
+                                    <p class="text-sm text-slate-500">Require 2FA for admin accounts</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end animate-fade-in-up" style="animation-delay: 0.2s;">
+                <button class="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-6 py-2 rounded-lg hover:from-indigo-600 hover:to-indigo-700 shadow-md transition-all">
+                    <i data-lucide="save" class="w-4 h-4"></i> Save All Settings
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            // Add active class to selected button
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

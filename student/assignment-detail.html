@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssignHub - Assignment Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .success-toast { transition: all 0.5s ease; opacity: 0; transform: translateY(-20px); pointer-events: none; }
+        .success-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50">
+
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Success Toast -->
+    <div id="toast" class="fixed top-4 right-4 z-[60] bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 success-toast">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        Assignment submitted successfully!
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-slate-100 z-50 transform transition-transform duration-300 -translate-x-full lg:translate-x-0">
+        <div class="flex flex-col h-full">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="book-open" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-slate-800">AssignHub</span>
+                </div>
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-slate-100 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
+                </button>
+            </div>
+            <div class="p-4 mx-4 mt-4 bg-slate-50 rounded-xl">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center text-white font-semibold">V</div>
+                    <div>
+                        <p class="font-semibold text-slate-800">Vimal Solanki</p>
+                        <p class="text-xs text-slate-500">Student • B4</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 p-4 overflow-y-auto">
+                <ul class="space-y-1">
+                    <li><a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span class="font-medium">Dashboard</span></a></li>
+                    <li><a href="courses.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="book-open" class="w-5 h-5"></i><span class="font-medium">My Courses</span></a></li>
+                    <li><a href="assignments.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-teal-500 to-blue-600 text-white shadow-md shadow-teal-500/20"><i data-lucide="file-text" class="w-5 h-5"></i><span class="font-medium">Assignments</span></a></li>
+                    <li><a href="notifications.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="bell" class="w-5 h-5"></i><span class="font-medium">Notifications</span></a></li>
+                    <li><a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="user" class="w-5 h-5"></i><span class="font-medium">Profile</span></a></li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-slate-100">
+                <a href="../auth.html" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all"><i data-lucide="log-out" class="w-5 h-5"></i><span class="font-medium">Logout</span></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-72">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="menu" class="w-5 h-5 text-slate-600"></i></button>
+                    <h1 class="text-xl font-bold text-slate-800">Assignment Details</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="relative p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="bell" class="w-5 h-5 text-slate-600"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <main class="p-6">
+            <a href="assignments.html" class="inline-flex items-center mb-6 text-slate-600 hover:text-slate-800 transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+                Back to Assignments
+            </a>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Column -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Assignment Card -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 animate-fade-in-up">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold">CE401</span>
+                            <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-xs font-semibold">Pending</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-1">Lab 3: UML Diagrams</h2>
+                        <p class="text-slate-500 mb-6">Software Engineering Principles & Practices</p>
+                        
+                        <div class="prose prose-slate max-w-none mb-6 text-slate-600">
+                            <p>Create comprehensive UML diagrams for the AssignHub system. This assignment requires you to demonstrate your understanding of software modeling through various UML diagram types.</p>
+                            <p class="mt-4"><strong>Requirements:</strong><br/>
+                            1. Use Case Diagram - Identify all actors and their interactions<br/>
+                            2. Class Diagram - Show the system's class structure with relationships<br/>
+                            3. Sequence Diagram - Model the assignment submission workflow<br/>
+                            4. Activity Diagram - Document the evaluation process flow</p>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-100">
+                            <h4 class="font-semibold text-slate-900 mb-3">Instructions</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-slate-600">
+                                <li>Download the reference material provided below</li>
+                                <li>Use any UML tool (StarUML, draw.io, Lucidchart)</li>
+                                <li>Export diagrams as PDF or high-quality images</li>
+                                <li>Combine all diagrams in a single PDF file</li>
+                                <li>Upload before the deadline</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Resources -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">Reference Materials</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                        <i data-lucide="file" class="w-5 h-5 text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate-900">UML Guidelines.pdf</p>
+                                        <p class="text-sm text-slate-500">2.3 MB</p>
+                                    </div>
+                                </div>
+                                <button class="p-2 hover:bg-slate-200 rounded-lg">
+                                    <i data-lucide="download" class="w-4 h-4 text-slate-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submission Form -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">Submit Your Work</h3>
+                        
+                        <!-- File Upload -->
+                        <div class="mb-6">
+                            <label class="block mb-2 text-sm font-medium text-slate-700">Upload Assignment File</label>
+                            
+                            <!-- Empty State -->
+                            <div id="upload-empty" class="border-2 border-dashed border-slate-200 rounded-xl p-8 text-center hover:border-teal-400 transition-colors cursor-pointer" onclick="document.getElementById('file-input').click()">
+                                <input type="file" id="file-input" class="hidden" onchange="handleFileSelect(this)">
+                                <i data-lucide="upload-cloud" class="w-10 h-10 text-slate-400 mx-auto mb-3"></i>
+                                <p class="text-slate-600 font-medium">Click to upload or drag and drop</p>
+                                <p class="text-sm text-slate-400 mt-1">PDF, PNG, JPG (Max: 10 MB)</p>
+                            </div>
+
+                            <!-- Selected State -->
+                            <div id="upload-selected" class="hidden flex items-center justify-between p-4 bg-teal-50 border border-teal-200 rounded-xl">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
+                                        <i data-lucide="file" class="w-5 h-5 text-teal-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate-900" id="filename-display">assignment.pdf</p>
+                                        <p class="text-sm text-slate-500">2.4 MB</p>
+                                    </div>
+                                </div>
+                                <button onclick="clearFile()" class="p-1 hover:bg-teal-100 rounded-lg">
+                                    <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Comment -->
+                        <div class="mb-6">
+                            <label class="block mb-2 text-sm font-medium text-slate-700">Add Comment (Optional)</label>
+                            <textarea rows="3" placeholder="Any additional notes for your faculty..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:bg-white focus:border-teal-500 transition-colors"></textarea>
+                        </div>
+
+                        <button id="submit-btn" disabled class="w-full bg-gradient-to-r from-teal-500 to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed hover:from-teal-600 hover:to-blue-700 text-white py-3 rounded-xl shadow-lg shadow-teal-500/25 font-medium flex items-center justify-center gap-2 transition-all" onclick="submitAssignment()">
+                            <i data-lucide="arrow-up-circle" class="w-5 h-5"></i>
+                            Submit Assignment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column (Sidebar Info) -->
+                <div class="space-y-6">
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center animate-fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="clock" class="w-8 h-8 text-amber-600"></i>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-1">Time Remaining</p>
+                        <p class="text-3xl font-bold text-amber-600">5 days</p>
+                        <p class="text-sm text-slate-500 mt-2">Due: Monday, Jan 20</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">Details</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between"><span class="text-slate-500">Faculty</span><span class="font-medium text-slate-900">Dr. Rajesh Kumar</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Max Marks</span><span class="font-medium text-slate-900">20</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Posted On</span><span class="font-medium text-slate-900">Jan 10</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function handleFileSelect(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                document.getElementById('upload-empty').classList.add('hidden');
+                document.getElementById('upload-selected').classList.remove('hidden');
+                document.getElementById('upload-selected').classList.add('flex');
+                document.getElementById('filename-display').innerText = file.name;
+                document.getElementById('submit-btn').disabled = false;
+            }
+        }
+
+        function clearFile() {
+            document.getElementById('file-input').value = '';
+            document.getElementById('upload-empty').classList.remove('hidden');
+            document.getElementById('upload-selected').classList.add('hidden');
+            document.getElementById('upload-selected').classList.remove('flex');
+            document.getElementById('submit-btn').disabled = true;
+        }
+
+        function submitAssignment() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

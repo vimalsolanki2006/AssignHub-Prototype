@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssignHub - Admin Batches</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50">
+
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-slate-100 z-50 transform transition-transform duration-300 -translate-x-full lg:translate-x-0">
+        <div class="flex flex-col h-full">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="shield" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-slate-800">AssignHub</span>
+                </div>
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-slate-100 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
+                </button>
+            </div>
+            <div class="p-4 mx-4 mt-4 bg-slate-50 rounded-xl">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">AD</div>
+                    <div>
+                        <p class="font-semibold text-slate-800">Admin User</p>
+                        <p class="text-xs text-slate-500">Administrator</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 p-4 overflow-y-auto">
+                <ul class="space-y-1">
+                    <li><a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span class="font-medium">Dashboard</span></a></li>
+                    <li><a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="users" class="w-5 h-5"></i><span class="font-medium">Users</span></a></li>
+                    <li><a href="courses.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="book-open" class="w-5 h-5"></i><span class="font-medium">Courses</span></a></li>
+                    <li><a href="batches.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-md shadow-indigo-500/20"><i data-lucide="shield" class="w-5 h-5"></i><span class="font-medium">Batches</span></a></li>
+                    <li><a href="logs.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="activity" class="w-5 h-5"></i><span class="font-medium">Activity Logs</span></a></li>
+                    <li><a href="settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="settings" class="w-5 h-5"></i><span class="font-medium">Settings</span></a></li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-slate-100">
+                <a href="../auth.html" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all"><i data-lucide="log-out" class="w-5 h-5"></i><span class="font-medium">Logout</span></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-72">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="menu" class="w-5 h-5 text-slate-600"></i></button>
+                    <h1 class="text-xl font-bold text-slate-800">Batch Management</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="relative p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="bell" class="w-5 h-5 text-slate-600"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <main class="p-6">
+            <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-in-up">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Batch Management</h2>
+                    <p class="text-slate-600">Organize students into batches and groups</p>
+                </div>
+                <button onclick="toggleModal('add-batch-modal')" class="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-indigo-600 hover:to-indigo-700 shadow-md transition-all">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Create Batch
+                </button>
+            </div>
+
+            <!-- Filters -->
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="flex flex-wrap gap-4">
+                    <select class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                        <option value="all">2024-25</option>
+                        <option value="student">2023-24</option>
+                    </select>
+                    <select class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                        <option value="all">All Semesters</option>
+                        <option value="active">Sem III</option>
+                        <option value="inactive">Sem IV</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Batches Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <!-- Batch Card 1 -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">B1</div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-lg">Batch B1</h3>
+                            </div>
+                        </div>
+                        <button class="p-1 text-slate-400 hover:text-slate-600 rounded"><i data-lucide="more-vertical" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Year</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold">2024-25</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Semester</span>
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Sem IV</span>
+                        </div>
+                         <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Students</span>
+                            <span class="font-semibold text-slate-900">30</span>
+                        </div>
+                         <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Courses</span>
+                            <span class="font-semibold text-slate-900">4</span>
+                        </div>
+                        <div class="pt-3 border-t border-slate-100">
+                            <p class="text-xs text-slate-400 mb-1">Coordinator</p>
+                            <p class="text-sm font-medium text-slate-900">Dr. Rajesh Kumar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Batch Card 2 -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">B2</div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-lg">Batch B2</h3>
+                            </div>
+                        </div>
+                        <button class="p-1 text-slate-400 hover:text-slate-600 rounded"><i data-lucide="more-vertical" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Year</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold">2024-25</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Semester</span>
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Sem IV</span>
+                        </div>
+                         <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Students</span>
+                            <span class="font-semibold text-slate-900">30</span>
+                        </div>
+                         <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Courses</span>
+                            <span class="font-semibold text-slate-900">4</span>
+                        </div>
+                        <div class="pt-3 border-t border-slate-100">
+                            <p class="text-xs text-slate-400 mb-1">Coordinator</p>
+                            <p class="text-sm font-medium text-slate-900">Prof. Anita Shah</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Batch Card 3 -->
+                 <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">B3</div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-lg">Batch B3</h3>
+                            </div>
+                        </div>
+                        <button class="p-1 text-slate-400 hover:text-slate-600 rounded"><i data-lucide="more-vertical" class="w-5 h-5"></i></button>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Year</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold">2024-25</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Semester</span>
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Sem IV</span>
+                        </div>
+                         <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Students</span>
+                            <span class="font-semibold text-slate-900">30</span>
+                        </div>
+                         <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-500">Courses</span>
+                            <span class="font-semibold text-slate-900">4</span>
+                        </div>
+                        <div class="pt-3 border-t border-slate-100">
+                            <p class="text-xs text-slate-400 mb-1">Coordinator</p>
+                            <p class="text-sm font-medium text-slate-900">Dr. Vikram Patel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Batch Modal -->
+    <div id="add-batch-modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modal-content">
+            <h3 class="text-lg font-bold text-slate-900 mb-4">Create New Batch</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Batch Name</label>
+                    <input type="text" placeholder="e.g. B7" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Academic Year</label>
+                        <select class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                            <option>2024-25</option>
+                            <option>2025-26</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Semester</label>
+                        <select class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                            <option>Sem III</option>
+                            <option>Sem IV</option>
+                            <option>Sem V</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Assign Coordinator</label>
+                     <select class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                        <option>Dr. Rajesh Kumar</option>
+                        <option>Dr. Vikram Patel</option>
+                    </select>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="toggleModal('add-batch-modal')" class="flex-1 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 font-medium">Cancel</button>
+                    <button onclick="toggleModal('add-batch-modal')" class="flex-1 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium">Create Batch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = modal.querySelector('#modal-content');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    content.classList.remove('scale-95', 'opacity-0');
+                    content.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            } else {
+                content.classList.remove('scale-100', 'opacity-100');
+                content.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

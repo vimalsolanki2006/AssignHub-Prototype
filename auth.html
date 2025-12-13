@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssignHub - Authentication</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .hidden-field { display: none; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50 flex">
+    
+    <!-- Left Side - Branding (Hidden on mobile) -->
+    <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-12 flex-col justify-between relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-teal-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="relative z-10">
+            <a href="index.html" class="flex items-center gap-3 text-white mb-4 hover:opacity-80 transition-opacity">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                <span>Back to Home</span>
+            </a>
+        </div>
+
+        <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-blue-600 rounded-2xl flex items-center justify-center">
+                    <i data-lucide="book-open" class="w-7 h-7 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-white">AssignHub</h1>
+                    <p class="text-slate-400">Lab Assignment System</p>
+                </div>
+            </div>
+            <h2 class="text-4xl font-bold text-white leading-tight mb-6">
+                Streamline Your<br />Academic Workflow
+            </h2>
+            <p class="text-slate-400 text-lg leading-relaxed">
+                Access your assignments, submit your work, and track your progress all in one place.
+            </p>
+        </div>
+
+        <div class="relative z-10">
+            <p class="text-slate-500 text-sm">
+                © 2025 Dharmsinh Desai University
+            </p>
+        </div>
+    </div>
+
+    <!-- Right Side - Form -->
+    <div class="flex-1 flex items-center justify-center p-6 lg:p-12">
+        <div class="w-full max-w-md animate-fade-in transition-all duration-500 opacity-0 translate-x-5" id="auth-container">
+            <!-- Mobile Logo -->
+            <div class="lg:hidden flex items-center gap-3 mb-8">
+                <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-600 rounded-xl flex items-center justify-center">
+                    <i data-lucide="book-open" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="text-2xl font-bold text-slate-800">AssignHub</span>
+            </div>
+
+            <div class="mb-8">
+                <h2 id="form-title" class="text-3xl font-bold text-slate-900 mb-2">Welcome Back</h2>
+                <p id="form-subtitle" class="text-slate-600">Sign in to continue to your dashboard</p>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="mb-6">
+                <label class="text-sm font-medium text-slate-700 mb-3 block">Select Your Role</label>
+                <div class="grid grid-cols-3 gap-3">
+                    <button type="button" onclick="selectRole('student')" id="role-student" class="role-btn p-4 rounded-xl border-2 transition-all border-teal-500 bg-teal-50">
+                        <div class="w-10 h-10 bg-teal-500 rounded-lg flex items-center justify-center mx-auto mb-2 transition-colors icon-container">
+                           <i data-lucide="graduation-cap" class="w-5 h-5 text-white icon-svg"></i>
+                        </div>
+                        <span class="text-sm font-medium text-teal-700 label-text">Student</span>
+                    </button>
+                    <button type="button" onclick="selectRole('faculty')" id="role-faculty" class="role-btn p-4 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300">
+                        <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-2 transition-colors icon-container">
+                           <i data-lucide="users" class="w-5 h-5 text-slate-500 icon-svg"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-600 label-text">Faculty</span>
+                    </button>
+                    <button type="button" onclick="selectRole('admin')" id="role-admin" class="role-btn p-4 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300">
+                        <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-2 transition-colors icon-container">
+                           <i data-lucide="shield" class="w-5 h-5 text-slate-500 icon-svg"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-600 label-text">Admin</span>
+                    </button>
+                </div>
+            </div>
+
+            <form id="auth-form" class="space-y-5" onsubmit="handleAuth(event)">
+                <!-- Signup Fields -->
+                <div id="signup-fields" class="hidden-field space-y-5">
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">Full Name</label>
+                        <div class="relative mt-1.5">
+                            <i data-lucide="user" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                            <input type="text" placeholder="Enter your full name" class="w-full pl-10 py-5 bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:bg-white focus:border-teal-500 transition-colors">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Fields -->
+                <div>
+                    <label class="text-sm font-medium text-slate-700">Email Address</label>
+                    <div class="relative mt-1.5">
+                        <i data-lucide="mail" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                        <input type="email" required placeholder="Enter your email" class="w-full pl-10 py-5 bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:bg-white focus:border-teal-500 transition-colors">
+                    </div>
+                </div>
+
+                <!-- Student Specific Signup Fields -->
+                <div id="student-fields" class="hidden-field space-y-5">
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">Enrolment Number</label>
+                        <input type="text" placeholder="e.g., 24CEUBS148" class="w-full px-4 py-5 bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:bg-white focus:border-teal-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">Batch</label>
+                        <input type="text" placeholder="e.g., B4" class="w-full px-4 py-5 bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:bg-white focus:border-teal-500 transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-sm font-medium text-slate-700">Password</label>
+                    <div class="relative mt-1.5">
+                        <i data-lucide="lock" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                        <input type="password" required placeholder="Enter your password" class="w-full pl-10 pr-10 py-5 bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:bg-white focus:border-teal-500 transition-colors">
+                        <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="forgot-password-link" class="flex items-center justify-end">
+                    <button type="button" class="text-sm text-teal-600 hover:text-teal-700 font-medium">Forgot Password?</button>
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full py-5 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white text-base rounded-xl shadow-lg shadow-teal-500/25 transition-all font-semibold">
+                    Sign In
+                </button>
+            </form>
+
+            <p class="mt-6 text-center text-slate-600">
+                <span id="toggle-text">Don't have an account?</span>
+                <button type="button" onclick="toggleMode()" id="toggle-btn" class="text-teal-600 hover:text-teal-700 font-semibold ml-1">
+                    Sign Up
+                </button>
+            </p>
+
+            <div class="lg:hidden mt-8 text-center">
+                <a href="index.html" class="text-slate-500 hover:text-slate-700 text-sm">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // Animation on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('auth-container');
+            setTimeout(() => {
+                container.classList.remove('opacity-0', 'translate-x-5');
+            }, 100);
+        });
+
+        let isSignup = false;
+        let selectedRole = 'student';
+
+        const roles = {
+            student: { color: 'bg-teal-500', text: 'text-teal-700' },
+            faculty: { color: 'bg-blue-600', text: 'text-blue-700' },
+            admin: { color: 'bg-indigo-600', text: 'text-indigo-700' }
+        };
+
+        function selectRole(role) {
+            selectedRole = role;
+            
+            // Reset all buttons
+            ['student', 'faculty', 'admin'].forEach(r => {
+                const btn = document.getElementById(`role-${r}`);
+                const iconContainer = btn.querySelector('.icon-container');
+                const iconSvg = btn.querySelector('.icon-svg');
+                const label = btn.querySelector('.label-text');
+                
+                if (r === role) {
+                    btn.className = `role-btn p-4 rounded-xl border-2 transition-all border-teal-500 bg-teal-50`;
+                    iconContainer.className = `w-10 h-10 ${roles[role].color} rounded-lg flex items-center justify-center mx-auto mb-2 transition-colors icon-container`;
+                    iconSvg.classList.remove('text-slate-500');
+                    iconSvg.classList.add('text-white');
+                    label.className = `text-sm font-medium ${roles[role].text} label-text`;
+                } else {
+                    btn.className = `role-btn p-4 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300`;
+                    iconContainer.className = `w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-2 transition-colors icon-container`;
+                    iconSvg.classList.remove('text-white');
+                    iconSvg.classList.add('text-slate-500');
+                    label.className = `text-sm font-medium text-slate-600 label-text`;
+                }
+            });
+
+            updateVisibility();
+        }
+
+        function toggleMode() {
+            isSignup = !isSignup;
+            
+            const title = document.getElementById('form-title');
+            const subtitle = document.getElementById('form-subtitle');
+            const submitBtn = document.getElementById('submit-btn');
+            const toggleText = document.getElementById('toggle-text');
+            const toggleBtn = document.getElementById('toggle-btn');
+            const forgotPwd = document.getElementById('forgot-password-link');
+
+            if (isSignup) {
+                title.innerText = 'Create Account';
+                subtitle.innerText = 'Sign up to get started with AssignHub';
+                submitBtn.innerText = 'Create Account';
+                toggleText.innerText = 'Already have an account?';
+                toggleBtn.innerText = 'Sign In';
+                forgotPwd.classList.add('hidden');
+            } else {
+                title.innerText = 'Welcome Back';
+                subtitle.innerText = 'Sign in to continue to your dashboard';
+                submitBtn.innerText = 'Sign In';
+                toggleText.innerText = "Don't have an account?";
+                toggleBtn.innerText = 'Sign Up';
+                forgotPwd.classList.remove('hidden');
+            }
+
+            updateVisibility();
+        }
+
+        function updateVisibility() {
+            const signupFields = document.getElementById('signup-fields');
+            const studentFields = document.getElementById('student-fields');
+
+            if (isSignup) {
+                signupFields.classList.remove('hidden-field');
+                if (selectedRole === 'student') {
+                    studentFields.classList.remove('hidden-field');
+                } else {
+                    studentFields.classList.add('hidden-field');
+                }
+            } else {
+                signupFields.classList.add('hidden-field');
+                studentFields.classList.add('hidden-field');
+            }
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            // Redirect logic akin to prototype
+            if (selectedRole === 'student') {
+                window.location.href = 'student/dashboard.html';
+            } else if (selectedRole === 'faculty') {
+                window.location.href = 'faculty/dashboard.html';
+            } else if (selectedRole === 'admin') {
+                window.location.href = 'admin/dashboard.html';
+            }
+        }
+    </script>
+</body>
+</html>

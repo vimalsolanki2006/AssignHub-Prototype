@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssignHub - Faculty Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50">
+
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-slate-100 z-50 transform transition-transform duration-300 -translate-x-full lg:translate-x-0">
+        <div class="flex flex-col h-full">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-teal-500 to-blue-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="book-open" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-slate-800">AssignHub</span>
+                </div>
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-slate-100 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
+                </button>
+            </div>
+            <div class="p-4 mx-4 mt-4 bg-slate-50 rounded-xl">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">RK</div>
+                    <div>
+                        <p class="font-semibold text-slate-800">Dr. Rajesh Kumar</p>
+                        <p class="text-xs text-slate-500">Faculty</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 p-4 overflow-y-auto">
+                <ul class="space-y-1">
+                    <li><a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span class="font-medium">Dashboard</span></a></li>
+                    <li><a href="courses.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="book-open" class="w-5 h-5"></i><span class="font-medium">Courses</span></a></li>
+                    <li><a href="assignments.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="file-text" class="w-5 h-5"></i><span class="font-medium">Assignments</span></a></li>
+                    <li><a href="submissions.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="clipboard-check" class="w-5 h-5"></i><span class="font-medium">Submissions</span></a></li>
+                    <li><a href="students.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-100"><i data-lucide="users" class="w-5 h-5"></i><span class="font-medium">Students</span></a></li>
+                    <li><a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-teal-500 to-blue-600 text-white shadow-md shadow-teal-500/20"><i data-lucide="user" class="w-5 h-5"></i><span class="font-medium">Profile</span></a></li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-slate-100">
+                <a href="../auth.html" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all"><i data-lucide="log-out" class="w-5 h-5"></i><span class="font-medium">Logout</span></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-72">
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="menu" class="w-5 h-5 text-slate-600"></i></button>
+                    <h1 class="text-xl font-bold text-slate-800">My Profile</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="relative p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="bell" class="w-5 h-5 text-slate-600"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <main class="p-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Profile Card -->
+                <div class="lg:col-span-1 animate-fade-in-up">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 text-center">
+                        <div class="relative inline-block mb-4">
+                            <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold">RK</div>
+                            <button class="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-slate-50">
+                                <i data-lucide="camera" class="w-4 h-4 text-slate-600"></i>
+                            </button>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900">Dr. Rajesh Kumar</h2>
+                        <p class="text-slate-500">Duplicate Associate Professor</p>
+                        <p class="text-sm text-slate-400 mt-1">FAC2015042</p>
+
+                        <div class="mt-6 pt-6 border-t border-slate-100 space-y-4 text-left">
+                            <div class="flex items-center gap-3 text-slate-600"><i data-lucide="mail" class="w-4 h-4"></i><span class="text-sm">rajesh.kumar@ddu.ac.in</span></div>
+                            <div class="flex items-center gap-3 text-slate-600"><i data-lucide="phone" class="w-4 h-4"></i><span class="text-sm">+91 98765 12345</span></div>
+                            <div class="flex items-center gap-3 text-slate-600"><i data-lucide="building" class="w-4 h-4"></i><span class="text-sm">Computer Engineering</span></div>
+                            <div class="flex items-center gap-3 text-slate-600"><i data-lucide="graduation-cap" class="w-4 h-4"></i><span class="text-sm">Ph.D. in Computer Science</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mt-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">This Semester</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-3 bg-slate-50 rounded-xl"><p class="text-2xl font-bold text-slate-900">3</p><p class="text-xs text-slate-500">Courses</p></div>
+                            <div class="text-center p-3 bg-slate-50 rounded-xl"><p class="text-2xl font-bold text-slate-900">160</p><p class="text-xs text-slate-500">Students</p></div>
+                            <div class="text-center p-3 bg-slate-50 rounded-xl"><p class="text-2xl font-bold text-slate-900">15</p><p class="text-xs text-slate-500">Assignments</p></div>
+                            <div class="text-center p-3 bg-slate-50 rounded-xl"><p class="text-2xl font-bold text-slate-900">420</p><p class="text-xs text-slate-500">Evaluations</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Form -->
+                <div class="lg:col-span-2 animate-fade-in-up" style="animation-delay: 0.1s;">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-slate-900">Personal Information</h3>
+                            <button id="edit-btn" onclick="toggleEdit()" class="flex items-center gap-2 border border-slate-200 hover:bg-slate-50 rounded-md px-3 py-1.5 text-sm font-medium transition-colors">
+                                <i data-lucide="edit-2" class="w-4 h-4"></i> Edit Profile
+                            </button>
+                            <div id="save-cancel-btns" class="hidden gap-2">
+                                <button onclick="toggleEdit()" class="flex items-center gap-2 border border-slate-200 hover:bg-slate-50 rounded-md px-3 py-1.5 text-sm font-medium transition-colors">
+                                    <i data-lucide="x" class="w-4 h-4"></i> Cancel
+                                </button>
+                                <button onclick="toggleEdit()" class="flex items-center gap-2 bg-slate-900 text-white hover:bg-slate-800 rounded-md px-3 py-1.5 text-sm font-medium transition-colors">
+                                    <i data-lucide="save" class="w-4 h-4"></i> Save
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label><input type="text" value="Dr. Rajesh Kumar" class="profile-input w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label><input type="text" value="rajesh.kumar@ddu.ac.in" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Phone Number</label><input type="text" value="+91 98765 12345" class="profile-input w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Designation</label><input type="text" value="Associate Professor" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Department</label><input type="text" value="Computer Engineering" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Employee ID</label><input type="text" value="FAC2015042" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Qualification</label><input type="text" value="Ph.D. in Computer Science" class="profile-input w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Experience</label><input type="text" value="12 years" class="profile-input w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                            <div class="md:col-span-2"><label class="block text-sm font-medium text-slate-700 mb-1">Specialization</label><input type="text" value="Software Engineering, Data Mining" class="profile-input w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-500" disabled></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mt-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">Change Password</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Current Password</label><input type="password" placeholder="••••••••" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-teal-500"></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">New Password</label><input type="password" placeholder="••••••••" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-teal-500"></div>
+                            <div><label class="block text-sm font-medium text-slate-700 mb-1">Confirm New Password</label><input type="password" placeholder="••••••••" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-teal-500"></div>
+                        </div>
+                        <button class="mt-4 bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">Update Password</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function toggleEdit() {
+            const isEditing = document.getElementById('edit-btn').classList.contains('hidden');
+            const inputs = document.querySelectorAll('.profile-input');
+            const editBtn = document.getElementById('edit-btn');
+            const saveCancelBtns = document.getElementById('save-cancel-btns');
+
+            if (!isEditing) {
+                // Switch to Edit Mode
+                inputs.forEach(input => {
+                    input.disabled = false;
+                    input.classList.remove('bg-slate-50', 'text-slate-500');
+                    input.classList.add('bg-white', 'text-slate-900', 'focus:outline-none', 'focus:border-blue-500');
+                });
+                editBtn.classList.add('hidden');
+                saveCancelBtns.classList.remove('hidden');
+                saveCancelBtns.classList.add('flex');
+            } else {
+                // Switch to View Mode
+                inputs.forEach(input => {
+                    input.disabled = true;
+                    input.classList.add('bg-slate-50', 'text-slate-500');
+                    input.classList.remove('bg-white', 'text-slate-900', 'focus:outline-none', 'focus:border-blue-500');
+                });
+                editBtn.classList.remove('hidden');
+                saveCancelBtns.classList.add('hidden');
+                saveCancelBtns.classList.remove('flex');
+            }
+        }
+    </script>
+</body>
+</html>
