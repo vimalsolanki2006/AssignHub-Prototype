@@ -2,7 +2,7 @@
 
 **AssignHub** is a comprehensive assignment management system designed to streamline the workflow between Administrators, Faculty, and Students. It provides a centralized platform for managing courses, users, assignments, submissions, and evaluations.
 
-![AssignHub Dashboard](AssignHub_Dashboard.png) *Note: Replace with actual screenshot path if available*
+![AssignHub Dashboard](AssignHub_Dashboard.png)
 
 ## 🚀 Features
 
