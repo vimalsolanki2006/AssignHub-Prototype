@@ -193,7 +193,7 @@
                     </div>
                     <div class="divide-y divide-slate-100">
                         <!-- Item 1 -->
-                        <a href="assignment-detail.html?id=1" class="block p-6 hover:bg-slate-50 transition-colors">
+                        <a href="assignments.html?filter=pending" class="block p-6 hover:bg-slate-50 transition-colors">
                             <div class="flex items-start justify-between mb-3">
                                 <div>
                                     <h4 class="font-medium text-slate-900">Lab 3: UML Diagrams</h4>
@@ -218,22 +218,22 @@
                             </div>
                         </a>
                         <!-- Item 2 -->
-                        <a href="assignment-detail.html?id=2" class="block p-6 hover:bg-slate-50 transition-colors">
+                        <a href="assignment-detail.html?status=submitted" class="block p-6 hover:bg-slate-50 transition-colors">
                             <div class="flex items-start justify-between mb-3">
                                 <div>
                                     <h4 class="font-medium text-slate-900">Database Normalization</h4>
                                     <p class="text-sm text-slate-500">Database Management</p>
                                 </div>
-                                <span class="bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded-full text-xs font-medium">Pending</span>
+                                <span class="bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full text-xs font-medium">Submitted</span>
                             </div>
                             <div class="flex items-center gap-4">
                                 <div class="flex-1">
                                     <div class="flex items-center justify-between text-sm mb-1">
                                         <span class="text-slate-500">Progress</span>
-                                        <span class="font-medium text-slate-700">30%</span>
+                                        <span class="font-medium text-slate-700">100%</span>
                                     </div>
                                     <div class="w-full bg-slate-100 rounded-full h-2">
-                                        <div class="bg-teal-500 h-2 rounded-full" style="width: 30%"></div>
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 100%"></div>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-1 text-sm text-slate-500">
@@ -264,9 +264,9 @@
                                 <div class="flex items-center justify-between">
                                     <span class="bg-green-100 text-green-700 px-2.5 py-0.5 rounded-full text-xs font-medium">Evaluated</span>
                                     <div class="flex gap-2">
-                                        <button class="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600">
+                                        <a href="assignment-detail.html?status=evaluated" class="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600">
                                             <i data-lucide="eye" class="w-4 h-4"></i>
-                                        </button>
+                                        </a>
                                         <button class="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600">
                                             <i data-lucide="download" class="w-4 h-4"></i>
                                         </button>

@@ -178,10 +178,11 @@
                         <h3 class="font-semibold text-slate-900 mb-4">Feedback</h3>
                         <textarea placeholder="Write feedback..." class="w-full px-3 py-2 border border-slate-200 rounded-lg h-32 mb-4 focus:outline-none focus:border-blue-500"></textarea>
                         
-                        <div class="border-2 border-dashed border-slate-200 rounded-lg p-4 text-center cursor-pointer hover:border-blue-400 transition-colors">
+                        <label class="block border-2 border-dashed border-slate-200 rounded-lg p-4 text-center cursor-pointer hover:border-blue-400 hover:bg-blue-50/50 transition-colors relative">
+                            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                             <i data-lucide="upload-cloud" class="w-5 h-5 text-slate-400 mx-auto mb-1"></i>
                             <p class="text-xs text-slate-500">Upload corrected file</p>
-                        </div>
+                        </label>
                     </div>
 
                     <div class="flex gap-3">

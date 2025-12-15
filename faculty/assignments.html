@@ -124,15 +124,32 @@
                                 <p class="text-xs text-slate-500">Evaluated</p>
                             </div>
 
-                            <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-2 relative">
                                 <a href="submissions.html">
                                     <button class="flex items-center gap-1 px-3 py-1.5 border border-slate-200 rounded-md text-sm font-medium text-slate-600 hover:bg-slate-50">
                                         <i data-lucide="eye" class="w-4 h-4"></i> View
                                     </button>
                                 </a>
-                                <button class="p-1.5 hover:bg-slate-50 rounded-md text-slate-500">
-                                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                                </button>
+                                <div class="relative">
+                                    <button onclick="toggleDropdown('action-menu-1')" class="p-1.5 hover:bg-slate-50 rounded-md text-slate-500 transition-colors">
+                                        <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                                    </button>
+                                    <div id="action-menu-1" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 z-10 p-1">
+                                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2">
+                                            <i data-lucide="edit-3" class="w-4 h-4"></i> Edit Details
+                                        </button>
+                                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2">
+                                            <i data-lucide="calendar-plus" class="w-4 h-4"></i> Extend Deadline
+                                        </button>
+                                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2">
+                                            <i data-lucide="eye-off" class="w-4 h-4"></i> Unpublish
+                                        </button>
+                                        <div class="h-px bg-slate-100 my-1"></div>
+                                        <button class="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2">
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i> Delete
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -164,15 +181,32 @@
                                 <p class="text-xs text-slate-500">Evaluated</p>
                             </div>
 
-                            <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-2 relative">
                                 <a href="submissions.html">
                                     <button class="flex items-center gap-1 px-3 py-1.5 border border-slate-200 rounded-md text-sm font-medium text-slate-600 hover:bg-slate-50">
                                         <i data-lucide="eye" class="w-4 h-4"></i> View
                                     </button>
                                 </a>
-                                <button class="p-1.5 hover:bg-slate-50 rounded-md text-slate-500">
-                                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                                </button>
+                                <div class="relative">
+                                    <button onclick="toggleDropdown('action-menu-2')" class="p-1.5 hover:bg-slate-50 rounded-md text-slate-500 transition-colors">
+                                        <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                                    </button>
+                                    <div id="action-menu-2" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 z-10 p-1">
+                                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2">
+                                            <i data-lucide="edit-3" class="w-4 h-4"></i> Edit Details
+                                        </button>
+                                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2">
+                                            <i data-lucide="calendar-plus" class="w-4 h-4"></i> Extend Deadline
+                                        </button>
+                                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2">
+                                            <i data-lucide="eye" class="w-4 h-4"></i> Publish
+                                        </button>
+                                        <div class="h-px bg-slate-100 my-1"></div>
+                                        <button class="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2">
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i> Delete
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,6 +228,26 @@
                 overlay.classList.add('hidden');
             }
         }
+
+        function toggleDropdown(id) {
+            const menu = document.getElementById(id);
+            const allMenus = document.querySelectorAll('[id^="action-menu-"]');
+            
+            allMenus.forEach(m => {
+                if (m.id !== id) m.classList.add('hidden');
+            });
+
+            menu.classList.toggle('hidden');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('button[onclick^="toggleDropdown"]') && !e.target.closest('[id^="action-menu-"]')) {
+                document.querySelectorAll('[id^="action-menu-"]').forEach(menu => {
+                    menu.classList.add('hidden');
+                });
+            }
+        });
     </script>
 </body>
 </html>

@@ -136,8 +136,8 @@
                         </div>
                     </div>
 
-                    <!-- Submission Form -->
-                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <!-- Submission Form (Default) -->
+                    <div id="upload-form-container" class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 animate-fade-in-up" style="animation-delay: 0.2s;">
                         <h3 class="text-lg font-semibold text-slate-900 mb-4">Submit Your Work</h3>
                         
                         <!-- File Upload -->
@@ -209,6 +209,36 @@
     <script>
         lucide.createIcons();
 
+        // Check URL parameters for view state
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+
+            if (status === 'submitted') {
+                showSubmittedView();
+            } else if (status === 'evaluated') {
+                showEvaluatedView();
+            }
+        });
+
+        function showUploadForm() {
+            document.getElementById('upload-form-container').classList.remove('hidden');
+            document.getElementById('submitted-view').classList.add('hidden');
+            document.getElementById('evaluated-view').classList.add('hidden');
+        }
+
+        function showSubmittedView() {
+            document.getElementById('upload-form-container').classList.add('hidden');
+            document.getElementById('submitted-view').classList.remove('hidden');
+            document.getElementById('evaluated-view').classList.add('hidden');
+        }
+
+        function showEvaluatedView() {
+            document.getElementById('upload-form-container').classList.add('hidden');
+            document.getElementById('submitted-view').classList.add('hidden');
+            document.getElementById('evaluated-view').classList.remove('hidden');
+        }
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobile-overlay');
@@ -245,7 +275,10 @@
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 3000);
+                // Simulate reload to submitted state
+                // window.location.href = window.location.pathname + '?status=submitted';
+                showSubmittedView();
+            }, 1000);
         }
     </script>
 </body>

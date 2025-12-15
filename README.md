@@ -1,43 +1,81 @@
-# AssignHub – Centralized Lab Assignment Submission & Evaluation System
+# AssignHub
 
-**AssignHub** is a comprehensive web-based platform designed to streamline the lifecycle of lab assignments in academic institutions. It bridges the gap between students, faculty, and administrators by providing a unified interface for assignment management, submission, evaluation, and grade tracking.
+**AssignHub** is a comprehensive assignment management system designed to streamline the workflow between Administrators, Faculty, and Students. It provides a centralized platform for managing courses, users, assignments, submissions, and evaluations.
 
-## 🌟 Key Features
+![AssignHub Dashboard](admin/dashboard.html) *Note: Replace with actual screenshot path if available*
 
-### 🎓 For Students
--   **Dashboard:** A personalized view of pending and completed assignments with deadline tracking.
--   **Easy Submission:** Seamless file upload interface for lab work, supporting various formats (PDF, ZIP, DOCX).
--   **Progress Tracking:** Real-time visibility into submission status, evaluated grades, and faculty feedback.
--   **Course Overview:** Access to enrolled courses and historical performance data.
+## 🚀 Features
 
-### �‍🏫 For Faculty
--   **Assignment Creation:** Flexible tools to create assignments with attachments, deadlines, and submission rules.
--   **Digital Evaluation:** A dedicated marking interfaces with a slider for grading and text areas for detailed feedback.
--   **Course Management:** Overview of assigned courses and student batches.
--   **Reports:** Quick insights into class performance and submission rates.
+### 👑 Admin Module
+*   **Dashboard**: Overview of system statistics (users, active courses) and recent activity logs.
+*   **User Management**: create, view, edit, deactivate, and reset passwords for students, faculty, and other admins.
+*   **Course Management**: Create, edit, archive, and manage students within courses.
+*   **Batch Management**: Manage student batches and coordinate assignments.
+*   **System Settings**: Configure academic years, maintenance modes, and access data archiving options.
+*   **Activity Logs**: Track system-wide events for security and auditing.
 
-### 🛡 For Administrators
--   **User Management:** detailed control to add, edit, or deactivate student and faculty accounts.
--   **Academic Structure:** Tools to manage Courses, Batches, and Academic Years.
--   **System Monitoring:** Comprehensive Activity Logs to track login events and critical actions.
--   **Global Settings:** Configuration for system-wide policies like max file sizes and late submission penalties.
+### 🎓 Faculty Module
+*   **Dashboard**: Track active assignments, pending evaluations, and recent submissions.
+*   **Assignment Creation**: Create assignments with detailed configurations:
+    *   Allowed file types and size limits.
+    *   Deadlines and late submission policies (Strict vs. Penalty).
+    *   Reference material uploads.
+*   **Assignment Management**: Edit details, extend deadlines, publish/unpublish, and delete assignments.
+*   **Evaluation**: Grade submissions, provide rich text feedback, and upload corrected/annotated files for students.
+*   **My Courses**: View assigned courses and manage specific course activities.
 
-## 🛠 Technology Stack
+### 🎒 Student Module
+*   **Dashboard**: View pending assignments, recent grades, and notifications.
+*   **Assignment Submission**:
+    *   Upload assignments (drag & drop support).
+    *   Add comments for faculty.
+*   **Submission Management**:
+    *   **Revision**: Replace files before the deadline.
+    *   **History**: View submission timestamps and status.
+*   **Results**: View detailed scorecards, faculty feedback, and download corrected files.
+*   **Profile**: Manage personal details and change passwords.
 
-This project is built using modern web standards for high performance and easy deployment:
+## 🛠️ Technology Stack
+*   **Core**: HTML5, JavaScript (Vanilla)
+*   **Styling**: Tailwind CSS (via CDN), Custom CSS
+*   **Icons**: Lucide Icons
+*   **Fonts**: Inter (Google Fonts)
 
--   **Structure:** HTML5 (Semantic)
--   **Styling:** Tailwind CSS (Utility-first CSS framework)
--   **Icons:** Lucide Icons (Vector icons)
--   **Logic:** Vanilla JavaScript (No heavy frameworks required)
+## 📂 Project Structure
+```
+AssignHub/
+├── index.html              # Landing Page
+├── auth.html               # Authentication (Login/Signup)
+├── admin/                  # Admin Module
+│   ├── dashboard.html
+│   ├── users.html
+│   ├── courses.html
+│   ├── batches.html
+│   ├── logs.html
+│   └── settings.html
+├── faculty/                # Faculty Module
+│   ├── dashboard.html
+│   ├── create-assignment.html
+│   ├── assignments.html
+│   ├── submissions.html
+│   ├── evaluate.html
+│   ├── courses.html
+│   ├── students.html
+│   └── profile.html
+└── student/                # Student Module
+    ├── dashboard.html
+    ├── assignments.html
+    ├── assignment-detail.html
+    ├── courses.html
+    ├── notifications.html
+    └── profile.html
+```
 
-## � How to Run
+## 🚀 Getting Started
+1.  Open `index.html` in your web browser.
+2.  Navigate to `Login`.
+3.  Choose your role (Student, Faculty, or Admin) to access the respective dashboard.
+    *   *Note: This is a static prototype. Authentication is simulated.*
 
-Since this is a static web application, no backend server or build process is required.
-
-1.  Open the **`AssignHub_Static`** folder.
-2.  Double-click **`index.html`** to launch the application in your web browser.
-3.  Navigate through the roles to explore the different functionalities.
-
----
-*Developed as part of the SEPP Project.*
+## 🎨 UI/UX Design
+The project follows a modern, consistent **Teal/Blue** color scheme across all modules to ensure a professional and cohesive user experience. It features responsive sidebars, modal interactions, and smooth transitions.
