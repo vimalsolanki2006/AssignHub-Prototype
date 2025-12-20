@@ -123,3 +123,91 @@ function toggleEdit() {
         }
     }
 }
+
+// Assignment Filtering Logic
+document.addEventListener('DOMContentLoaded', () => {
+    // Only run if on assignments page and elements exist
+    const searchInput = document.getElementById('assignment-search');
+    const courseFilter = document.getElementById('course-filter');
+    const statusFilters = document.getElementById('status-filters');
+    const assignmentsList = document.getElementById('assignments-list');
+
+    if (searchInput && courseFilter && statusFilters && assignmentsList) {
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentSearch = '';
+        let currentCourse = 'all';
+        let currentStatus = urlParams.get('filter') || 'all';
+
+        // Set initial active state for status buttons
+        if (currentStatus !== 'all') {
+            statusFilters.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-status') === currentStatus) {
+                    btn.classList.add('active', 'text-teal-600', 'border-b-2', 'border-teal-500');
+                    btn.classList.remove('text-slate-500', 'hover:text-slate-700');
+                } else {
+                    btn.classList.remove('active', 'text-teal-600', 'border-b-2', 'border-teal-500');
+                    btn.classList.add('text-slate-500', 'hover:text-slate-700');
+                }
+            });
+        }
+
+        function filterAssignments() {
+            const cards = assignmentsList.querySelectorAll('.assignment-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const course = card.getAttribute('data-course');
+                const status = card.getAttribute('data-status');
+
+                const matchesSearch = title.includes(currentSearch);
+                const matchesCourse = currentCourse === 'all' || course === currentCourse;
+                const matchesStatus = currentStatus === 'all' || status === currentStatus;
+
+                if (matchesSearch && matchesCourse && matchesStatus) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Show empty state if no matches (optional enhancement)
+            // const emptyState = document.getElementById('no-assignments-message');
+            // if (visibleCount === 0 && emptyState) emptyState.classList.remove('hidden');
+            // else if (emptyState) emptyState.classList.add('hidden');
+        }
+
+        // Initial Filter Run
+        filterAssignments();
+
+        // Search Input Listener
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase().trim();
+            filterAssignments();
+        });
+
+        // Course Filter Listener
+        courseFilter.addEventListener('change', (e) => {
+            currentCourse = e.target.value;
+            filterAssignments();
+        });
+
+        // Status Filter Buttons
+        statusFilters.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update UI
+                statusFilters.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('active', 'text-teal-600', 'border-b-2', 'border-teal-500');
+                    b.classList.add('text-slate-500', 'hover:text-slate-700');
+                });
+                btn.classList.add('active', 'text-teal-600', 'border-b-2', 'border-teal-500');
+                btn.classList.remove('text-slate-500', 'hover:text-slate-700');
+
+                // Update Filter
+                currentStatus = btn.getAttribute('data-status');
+                filterAssignments();
+            });
+        });
+    }
+});

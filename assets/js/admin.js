@@ -105,3 +105,39 @@ function switchTab(tabId) {
         activeBtn.style.color = '#4f46e5';
     }
 }
+
+// Global Form Handler for Admin Pages
+document.addEventListener('DOMContentLoaded', () => {
+    // Handle all forms
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get submit button to show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn ? submitBtn.innerText : '';
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto"></i>';
+                lucide.createIcons();
+            }
+
+            // Simulate API call
+            setTimeout(() => {
+                Toast.show('Changes saved successfully!', 'success');
+
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalText;
+                }
+
+                // If form is in a modal, close it
+                const modal = form.closest('[id$="-modal"]') || form.closest('.fixed');
+                if (modal) {
+                    toggleModal(modal.id);
+                }
+            }, 1000);
+        });
+    });
+});

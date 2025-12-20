@@ -17,9 +17,9 @@ const Toast = {
 
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
-        
+
         const iconName = type === 'success' ? 'check' : type === 'error' ? 'alert-circle' : 'info';
-        
+
         toast.innerHTML = `
             <div class="toast-icon">
                 <i data-lucide="${iconName}" class="w-5 h-5"></i>
@@ -58,13 +58,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 Toast.show('This feature is currently under development.', 'info');
             }
         }
-        
-        // Handle static buttons (if they don't have specific handlers)
-        // We can add a class 'static-btn' to buttons that should show this message
-        const staticBtn = e.target.closest('.static-btn');
-        if (staticBtn) {
-           e.preventDefault();
-           Toast.show('This feature is currently under development.', 'info'); 
+
+        // Handle Button Actions
+        const button = e.target.closest('button');
+        if (button) {
+            // Check for Export/Download buttons
+            if (button.textContent.trim().includes('Export') || button.textContent.trim().includes('Download')) {
+                // Allow meaningful downloads if they have specific logic, else show toast
+                if (!button.onclick && !button.hasAttribute('onclick')) {
+                    Toast.show('Exporting data... (Demo)', 'success');
+                }
+            }
+
+            // Check for Notification Bell
+            if (button.querySelector('[data-lucide="bell"]')) {
+                if (!button.onclick && !button.hasAttribute('onclick')) {
+                    Toast.show('No new notifications', 'info');
+                }
+            }
+
+            // Handle static buttons explicitly marked
+            if (button.classList.contains('static-btn')) {
+                e.preventDefault();
+                Toast.show('This feature is currently under development.', 'info');
+            }
+        }
+    });
+
+    // Handle Search Inputs (Enter key)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type === 'text') {
+            if (e.target.placeholder && e.target.placeholder.toLowerCase().includes('search')) {
+                Toast.show(`Searching for "${e.target.value}"...`, 'info');
+            }
+        }
+    });
+
+    // Handle Filter Changes
+    document.addEventListener('change', (e) => {
+        if (e.target.tagName === 'SELECT') {
+            Toast.show(`Filter applied: ${e.target.options[e.target.selectedIndex].text}`, 'info');
         }
     });
 });
