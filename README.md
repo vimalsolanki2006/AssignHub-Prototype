@@ -46,28 +46,33 @@
 AssignHub/
 ├── index.html              # Landing Page
 ├── auth.html               # Authentication (Login/Signup)
+├── assets/                 # Shared Resources
+│   ├── css/                # Global Styles (Tailwind, Custom)
+│   └── js/                 # Global Logic (Icons, Sidebar, Utils, Auth)
 ├── admin/                  # Admin Module
 │   ├── dashboard.html
-│   ├── users.html
-│   ├── courses.html
-│   ├── batches.html
-│   ├── logs.html
+│   ├── users.html          # User Management with Filtering
+│   ├── courses.html        # Course Management with Filtering
+│   ├── batches.html        # Batch Management with Filtering
+│   ├── logs.html           # Activity Logs with Filtering
+│   ├── notifications.html  # Admin Notifications
 │   └── settings.html
 ├── faculty/                # Faculty Module
 │   ├── dashboard.html
 │   ├── create-assignment.html
-│   ├── assignments.html
-│   ├── submissions.html
+│   ├── assignments.html    # Assignment Management with Search
+│   ├── submissions.html    # Submission Evaluation with Filters
 │   ├── evaluate.html
-│   ├── courses.html
-│   ├── students.html
+│   ├── courses.html        # Course List with Search
+│   ├── students.html       # Student List with Filters
+│   ├── notifications.html  # Faculty Notifications
 │   └── profile.html
 └── student/                # Student Module
     ├── dashboard.html
-    ├── assignments.html
+    ├── assignments.html    # Assignment List with Filters
     ├── assignment-detail.html
-    ├── courses.html
-    ├── notifications.html
+    ├── courses.html        # Course List with Filters
+    ├── notifications.html  # Student Notifications
     └── profile.html
 ```
 
