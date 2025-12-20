@@ -140,4 +140,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000);
         });
     });
+    // Admin Filter Logic
+    const userSearch = document.getElementById('user-search');
+    const roleFilter = document.getElementById('role-filter');
+    const statusFilter = document.getElementById('status-filter');
+    const usersTableBody = document.getElementById('users-table-body');
+
+    if (userSearch && usersTableBody) {
+        function filterUsers() {
+            const rows = usersTableBody.querySelectorAll('tr');
+            const term = userSearch.value.toLowerCase();
+            const role = roleFilter ? roleFilter.value : 'all';
+            const status = statusFilter ? statusFilter.value : 'all';
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const matchesSearch = text.includes(term);
+                const matchesRole = role === 'all' || text.includes(role);
+                const matchesStatus = status === 'all' || text.includes(status);
+
+                if (matchesSearch && matchesRole && matchesStatus) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        userSearch.addEventListener('input', filterUsers);
+        if (roleFilter) roleFilter.addEventListener('change', filterUsers);
+        if (statusFilter) statusFilter.addEventListener('change', filterUsers);
+    }
 });

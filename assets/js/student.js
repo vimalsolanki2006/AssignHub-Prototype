@@ -210,4 +210,33 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Course Search Logic
+    const courseSearch = document.getElementById('course-search');
+    const coursesList = document.getElementById('courses-list');
+
+    if (courseSearch && coursesList) {
+        courseSearch.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            const cards = coursesList.querySelectorAll('.course-card');
+
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                const code = card.getAttribute('data-code');
+                let match = false;
+
+                if (name && code) {
+                    match = name.includes(term) || code.includes(term);
+                } else {
+                    match = card.innerText.toLowerCase().includes(term);
+                }
+
+                if (match) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    }
 });

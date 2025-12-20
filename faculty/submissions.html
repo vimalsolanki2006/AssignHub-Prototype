@@ -73,27 +73,30 @@
                 <p class="text-slate-600">Review and evaluate student work</p>
             </div>
 
-            <!-- Filters -->
+            <!-- Search & Filter -->
             <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
-                <div class="flex flex-wrap gap-4">
-                    <div class="relative flex-1 min-w-[200px]">
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="relative flex-1 w-full">
                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                        <input type="text" placeholder="Search by name or roll no..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="text" id="submission-search" placeholder="Search by name or roll no..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
-                    <select class="w-48 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
-                        <option value="all">All Assignments</option>
-                        <option value="lab2">Lab 2: End Users</option>
-                        <option value="lab3">Lab 3: UML Diagrams</option>
-                    </select>
-                    <select class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
-                        <option value="all">All Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="evaluated">Evaluated</option>
-                        <option value="late">Late</option>
-                    </select>
-                    <button onclick="downloadMockCSV()" class="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600 transition-colors active:bg-slate-100">
-                        <i data-lucide="download" class="w-4 h-4"></i> Export
-                    </button>
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <select id="assignment-filter" class="flex-1 md:w-48 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                            <option value="all">All Assignments</option>
+                            <option value="lab1">Lab 1: HTML Basics</option>
+                            <option value="lab2">Lab 2: End Users</option>
+                            <option value="lab3">Lab 3: UML Diagrams</option>
+                        </select>
+                        <select id="status-filter" class="flex-1 md:w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="evaluated">Evaluated</option>
+                            <option value="late">Late</option>
+                        </select>
+                        <button onclick="downloadMockCSV()" class="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600 transition-colors active:bg-slate-100">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -112,9 +115,9 @@
                                 <th class="p-4 text-sm font-semibold text-slate-600 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100">
+                        <tbody id="submissions-table-body" class="divide-y divide-slate-100">
                             <!-- Row 1 -->
-                            <tr class="hover:bg-slate-50 group transition-colors">
+                            <tr class="hover:bg-slate-50 group transition-colors" data-assignment="lab2" data-status="pending">
                                 <td class="p-4"><input type="checkbox" class="rounded border-slate-300"></td>
                                 <td class="p-4">
                                     <div class="flex items-center gap-3">
@@ -140,7 +143,7 @@
                             </tr>
                             
                             <!-- Row 2 -->
-                            <tr class="hover:bg-slate-50 group transition-colors">
+                            <tr class="hover:bg-slate-50 group transition-colors" data-assignment="lab2" data-status="evaluated">
                                 <td class="p-4"><input type="checkbox" class="rounded border-slate-300"></td>
                                 <td class="p-4">
                                     <div class="flex items-center gap-3">
@@ -190,7 +193,136 @@
                                     </div>
                                 </td>
                             </tr>
-                        </tbody>
+                            
+                            <!-- Row 4 -->
+                            <tr class="hover:bg-slate-50 group transition-colors" data-assignment="lab3" data-status="pending">
+                                <td class="p-4"><input type="checkbox" class="rounded border-slate-300"></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-semibold text-xs">RK</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Rahul Kumar</p>
+                                            <p class="text-xs text-slate-500">CE005 • B1</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm text-slate-600">Lab 3: UML Diagrams</td>
+                                <td class="p-4 text-sm text-slate-500">Jan 18, 09:15 AM</td>
+                                <td class="p-4"><span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-xs font-semibold">Pending</span></td>
+                                <td class="p-4 text-sm text-slate-400">-</td>
+                                <td class="p-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded"><i data-lucide="download" class="w-4 h-4"></i></button>
+                                        <a href="evaluate.html?id=4" class="flex items-center gap-1 px-3 py-1.5 border border-slate-200 rounded text-xs font-medium text-slate-600 hover:bg-white hover:border-blue-300 hover:text-blue-600 transition-all">
+                                            <i data-lucide="eye" class="w-3 h-3"></i> Evaluate
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Row 5 -->
+                            <tr class="hover:bg-slate-50 group transition-colors" data-assignment="lab3" data-status="evaluated">
+                                <td class="p-4"><input type="checkbox" class="rounded border-slate-300"></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-semibold text-xs">SM</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Sneha Mishra</p>
+                                            <p class="text-xs text-slate-500">CE022 • B2</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm text-slate-600">Lab 3: UML Diagrams</td>
+                                <td class="p-4 text-sm text-slate-500">Jan 17, 02:45 PM</td>
+                                <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">Evaluated</span></td>
+                                <td class="p-4 text-sm font-semibold text-green-600">19/20</td>
+                                <td class="p-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded"><i data-lucide="download" class="w-4 h-4"></i></button>
+                                        <a href="evaluate.html?id=5" class="flex items-center gap-1 px-3 py-1.5 border border-slate-200 rounded text-xs font-medium text-slate-600 hover:bg-white hover:border-blue-300 hover:text-blue-600 transition-all">
+                                            <i data-lucide="eye" class="w-3 h-3"></i> View
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Row 6 -->
+                            <tr class="hover:bg-slate-50 group transition-colors" data-assignment="lab1" data-status="evaluated">
+                                <td class="p-4"><input type="checkbox" class="rounded border-slate-300"></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-semibold text-xs">NP</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Nikhil Parmar</p>
+                                            <p class="text-xs text-slate-500">CE015 • B1</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm text-slate-600">Lab 1: HTML Basics</td>
+                                <td class="p-4 text-sm text-slate-500">Jan 10, 11:20 AM</td>
+                                <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">Evaluated</span></td>
+                                <td class="p-4 text-sm font-semibold text-green-600">10/10</td>
+                                <td class="p-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded"><i data-lucide="download" class="w-4 h-4"></i></button>
+                                        <a href="evaluate.html?id=6" class="flex items-center gap-1 px-3 py-1.5 border border-slate-200 rounded text-xs font-medium text-slate-600 hover:bg-white hover:border-blue-300 hover:text-blue-600 transition-all">
+                                            <i data-lucide="eye" class="w-3 h-3"></i> View
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Row 7 -->
+                            <tr class="hover:bg-slate-50 group transition-colors" data-assignment="lab1" data-status="pending">
+                                <td class="p-4"><input type="checkbox" class="rounded border-slate-300"></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-cyan-100 rounded-full flex items-center justify-center text-cyan-600 font-semibold text-xs">KR</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Kavya Rathod</p>
+                                            <p class="text-xs text-slate-500">CE160 • B4</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm text-slate-600">Lab 1: HTML Basics</td>
+                                <td class="p-4 text-sm text-slate-500">Jan 11, 09:00 PM</td>
+                                <td class="p-4"><span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-xs font-semibold">Pending</span></td>
+                                <td class="p-4 text-sm text-slate-400">-</td>
+                                <td class="p-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded"><i data-lucide="download" class="w-4 h-4"></i></button>
+                                        <a href="evaluate.html?id=7" class="flex items-center gap-1 px-3 py-1.5 border border-slate-200 rounded text-xs font-medium text-slate-600 hover:bg-white hover:border-blue-300 hover:text-blue-600 transition-all">
+                                            <i data-lucide="eye" class="w-3 h-3"></i> Evaluate
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Row 8 -->
+                            <tr class="hover:bg-slate-50 group transition-colors" data-assignment="lab2" data-status="evaluated">
+                                <td class="p-4"><input type="checkbox" class="rounded border-slate-300"></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 font-semibold text-xs">AJ</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Arjun Jadeja</p>
+                                            <p class="text-xs text-slate-500">CE088 • B3</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm text-slate-600">Lab 2: End Users</td>
+                                <td class="p-4 text-sm text-slate-500">Jan 15, 05:30 PM</td>
+                                <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">Evaluated</span></td>
+                                <td class="p-4 text-sm font-semibold text-green-600">17/20</td>
+                                <td class="p-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded"><i data-lucide="download" class="w-4 h-4"></i></button>
+                                        <a href="evaluate.html?id=8" class="flex items-center gap-1 px-3 py-1.5 border border-slate-200 rounded text-xs font-medium text-slate-600 hover:bg-white hover:border-blue-300 hover:text-blue-600 transition-all">
+                                            <i data-lucide="eye" class="w-3 h-3"></i> View
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
                     </table>
                 </div>
             </div>

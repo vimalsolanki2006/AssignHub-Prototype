@@ -62,6 +62,10 @@
                     <h1 class="text-xl font-bold text-slate-800">My Courses</h1>
                 </div>
                 <div class="flex items-center gap-4">
+                    <div class="hidden md:block relative">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                        <input type="text" id="course-search" placeholder="Search courses..." class="pl-9 w-64 py-2 bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:bg-white focus:border-teal-500 transition-colors">
+                    </div>
                     <a href="notifications.html" class="relative p-2 hover:bg-slate-100 rounded-lg"><i data-lucide="bell" class="w-5 h-5 text-slate-600"></i></a>
                 </div>
             </div>
@@ -73,9 +77,9 @@
                 <p class="text-slate-600">Academic Year 2024-25</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div id="courses-list" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Course 1 -->
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-lg transition-all animate-fade-in-up">
+                <div class="course-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-lg transition-all animate-fade-in-up" data-name="software engineering principles & practices" data-code="ce401">
                     <div class="h-2 bg-gradient-to-r from-blue-500 to-blue-600"></div>
                     <div class="p-6">
                         <div class="flex items-start justify-between mb-4">
@@ -136,7 +140,7 @@
                 </div>
 
                 <!-- Course 2 -->
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-lg transition-all animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="course-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-lg transition-all animate-fade-in-up" style="animation-delay: 0.1s;" data-name="web development technologies" data-code="ce405">
                     <div class="h-2 bg-gradient-to-r from-indigo-500 to-indigo-600"></div>
                     <div class="p-6">
                         <div class="flex items-start justify-between mb-4">

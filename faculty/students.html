@@ -74,24 +74,30 @@
             </div>
 
             <!-- Filters -->
+            <!-- Filters -->
             <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
-                <div class="flex flex-wrap gap-4">
-                    <div class="relative flex-1 min-w-[200px]">
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="relative flex-1 w-full">
                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                        <input type="text" placeholder="Search by name or roll no..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="text" id="student-search" placeholder="Search by name or roll no..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
-                    <select class="w-48 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
-                        <option value="all">All Courses</option>
-                        <option value="ce401">CE401 - Software Eng</option>
-                    </select>
-                    <select class="w-32 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
-                        <option value="all">All Batches</option>
-                        <option value="b4">B4</option>
-                        <option value="b3">B3</option>
-                    </select>
-                    <button class="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600">
-                        <i data-lucide="download" class="w-4 h-4"></i> Export
-                    </button>
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <select id="course-filter" class="flex-1 md:w-48 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                            <option value="all">All Courses</option>
+                            <option value="ce401">CE401 - Software Eng</option>
+                            <option value="ce405">CE405 - Web Dev</option>
+                        </select>
+                        <select id="batch-filter" class="flex-1 md:w-32 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                            <option value="all">All Batches</option>
+                            <option value="b1">B1</option>
+                            <option value="b2">B2</option>
+                            <option value="b3">B3</option>
+                            <option value="b4">B4</option>
+                        </select>
+                        <button class="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -109,9 +115,9 @@
                                 <th class="p-4 text-sm font-semibold text-slate-600 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100">
+                        <tbody id="students-table-body" class="divide-y divide-slate-100">
                             <!-- Row 1 -->
-                            <tr class="hover:bg-slate-50">
+                            <tr class="hover:bg-slate-50" data-course="ce401" data-batch="b4">
                                 <td class="p-4">
                                     <div class="flex items-center gap-3">
                                         <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-semibold text-xs">VS</div>
@@ -138,7 +144,7 @@
                             </tr>
 
                             <!-- Row 2 -->
-                            <tr class="hover:bg-slate-50">
+                            <tr class="hover:bg-slate-50" data-course="ce401" data-batch="b4">
                                 <td class="p-4">
                                     <div class="flex items-center gap-3">
                                         <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-semibold text-xs">PP</div>
@@ -163,7 +169,141 @@
                                     <button class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded"><i data-lucide="mail" class="w-4 h-4"></i></button>
                                 </td>
                             </tr>
-                        </tbody>
+
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-slate-50" data-course="ce405" data-batch="b1">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-semibold text-xs">RK</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Rahul Kumar</p>
+                                            <p class="text-xs text-slate-500">rahul.kumar@ddu.ac.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-600 text-sm">CE005</td>
+                                <td class="p-4"><span class="bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded text-xs font-semibold">B1</span></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-orange-500 rounded-full" style="width: 60%"></div>
+                                        </div>
+                                        <span class="text-xs text-slate-600">3/5</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-orange-600 font-semibold text-sm">75%</td>
+                                <td class="p-4 text-right">
+                                    <button class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded"><i data-lucide="mail" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 4 -->
+                            <tr class="hover:bg-slate-50" data-course="ce405" data-batch="b2">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-semibold text-xs">SM</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Sneha Mishra</p>
+                                            <p class="text-xs text-slate-500">sneha.m@ddu.ac.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-600 text-sm">CE022</td>
+                                <td class="p-4"><span class="bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded text-xs font-semibold">B2</span></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 90%"></div>
+                                        </div>
+                                        <span class="text-xs text-slate-600">4/5</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-green-600 font-semibold text-sm">95%</td>
+                                <td class="p-4 text-right">
+                                    <button class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded"><i data-lucide="mail" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 5 -->
+                            <tr class="hover:bg-slate-50" data-course="ce401" data-batch="b3">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 font-semibold text-xs">AJ</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Arjun Jadeja</p>
+                                            <p class="text-xs text-slate-500">arjun.j@ddu.ac.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-600 text-sm">CE088</td>
+                                <td class="p-4"><span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold">B3</span></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-600 rounded-full" style="width: 40%"></div>
+                                        </div>
+                                        <span class="text-xs text-slate-600">2/6</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-600 font-semibold text-sm">60%</td>
+                                <td class="p-4 text-right">
+                                    <button class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded"><i data-lucide="mail" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 6 -->
+                            <tr class="hover:bg-slate-50" data-course="ce405" data-batch="b1">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-semibold text-xs">NP</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Nikhil Parmar</p>
+                                            <p class="text-xs text-slate-500">nikhil.p@ddu.ac.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-600 text-sm">CE015</td>
+                                <td class="p-4"><span class="bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded text-xs font-semibold">B1</span></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 100%"></div>
+                                        </div>
+                                        <span class="text-xs text-slate-600">5/5</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-green-600 font-semibold text-sm">98%</td>
+                                <td class="p-4 text-right">
+                                    <button class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded"><i data-lucide="mail" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 7 -->
+                            <tr class="hover:bg-slate-50" data-course="ce401" data-batch="b4">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-cyan-100 rounded-full flex items-center justify-center text-cyan-600 font-semibold text-xs">KR</div>
+                                        <div>
+                                            <p class="font-medium text-slate-900 text-sm">Kavya Rathod</p>
+                                            <p class="text-xs text-slate-500">kavya.r@ddu.ac.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-600 text-sm">CE160</td>
+                                <td class="p-4"><span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold">B4</span></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-600 rounded-full" style="width: 75%"></div>
+                                        </div>
+                                        <span class="text-xs text-slate-600">4/6</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-blue-600 font-semibold text-sm">82%</td>
+                                <td class="p-4 text-right">
+                                    <button class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded"><i data-lucide="mail" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
                     </table>
                 </div>
             </div>
