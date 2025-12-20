@@ -6,23 +6,13 @@
     <title>AssignHub - Assignment Details</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .success-toast { transition: all 0.5s ease; opacity: 0; transform: translateY(-20px); pointer-events: none; }
-        .success-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    </style>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
 </head>
 <body class="min-h-screen bg-slate-50">
 
     <!-- Mobile Overlay -->
     <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
-
-    <!-- Success Toast -->
-    <div id="toast" class="fixed top-4 right-4 z-[60] bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 success-toast">
-        <i data-lucide="check-circle" class="w-5 h-5"></i>
-        Assignment submitted successfully!
-    </div>
 
     <!-- Sidebar -->
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white border-r border-slate-100 z-50 transform transition-transform duration-300 -translate-x-full lg:translate-x-0">
@@ -180,6 +170,46 @@
                             Submit Assignment
                         </button>
                     </div>
+
+                    <!-- Placeholder for Submitted View -->
+                    <div id="submitted-view" class="hidden bg-white rounded-2xl border border-slate-100 shadow-sm p-6 animate-fade-in-up">
+                         <div class="flex flex-col items-center justify-center py-8 text-center">
+                            <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                                <i data-lucide="check" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Assignment Submitted!</h3>
+                            <p class="text-slate-600 max-w-sm">You have successfully submitted your work. You can resubmit until the deadline.</p>
+                            
+                            <div class="mt-8 p-4 bg-slate-50 rounded-xl w-full max-w-md border border-slate-200 flex items-center justify-between">
+                                 <div class="flex items-center gap-3">
+                                    <i data-lucide="file-check" class="w-5 h-5 text-slate-500"></i>
+                                    <span class="font-medium text-slate-700">assignment_final.pdf</span>
+                                </div>
+                                <button class="text-sm text-red-600 font-medium hover:text-red-700">Remove</button>
+                            </div>
+                         </div>
+                    </div>
+
+                     <!-- Placeholder for Evaluated View -->
+                    <div id="evaluated-view" class="hidden bg-white rounded-2xl border border-slate-100 shadow-sm p-6 animate-fade-in-up">
+                         <div class="flex flex-col items-center justify-center py-8 text-center">
+                             <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
+                                <i data-lucide="award" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Graded: 18/20</h3>
+                            <p class="text-slate-600 max-w-sm mb-6">Great work! Your diagram logic is solid.</p>
+                            
+                             <div class="w-full text-left space-y-4">
+                                <div>
+                                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Faculty Feedback</span>
+                                    <p class="mt-1 text-slate-700 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                                        "Excellent understanding of Sequence diagrams. Class diagram could use more detailed attribute types, but overall very good."
+                                    </p>
+                                </div>
+                             </div>
+                         </div>
+                    </div>
+
                 </div>
 
                 <!-- Right Column (Sidebar Info) -->
@@ -206,80 +236,9 @@
         </main>
     </div>
 
-    <script>
-        lucide.createIcons();
-
-        // Check URL parameters for view state
-        window.addEventListener('load', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const status = urlParams.get('status');
-
-            if (status === 'submitted') {
-                showSubmittedView();
-            } else if (status === 'evaluated') {
-                showEvaluatedView();
-            }
-        });
-
-        function showUploadForm() {
-            document.getElementById('upload-form-container').classList.remove('hidden');
-            document.getElementById('submitted-view').classList.add('hidden');
-            document.getElementById('evaluated-view').classList.add('hidden');
-        }
-
-        function showSubmittedView() {
-            document.getElementById('upload-form-container').classList.add('hidden');
-            document.getElementById('submitted-view').classList.remove('hidden');
-            document.getElementById('evaluated-view').classList.add('hidden');
-        }
-
-        function showEvaluatedView() {
-            document.getElementById('upload-form-container').classList.add('hidden');
-            document.getElementById('submitted-view').classList.add('hidden');
-            document.getElementById('evaluated-view').classList.remove('hidden');
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        function handleFileSelect(input) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                document.getElementById('upload-empty').classList.add('hidden');
-                document.getElementById('upload-selected').classList.remove('hidden');
-                document.getElementById('upload-selected').classList.add('flex');
-                document.getElementById('filename-display').innerText = file.name;
-                document.getElementById('submit-btn').disabled = false;
-            }
-        }
-
-        function clearFile() {
-            document.getElementById('file-input').value = '';
-            document.getElementById('upload-empty').classList.remove('hidden');
-            document.getElementById('upload-selected').classList.add('hidden');
-            document.getElementById('upload-selected').classList.remove('flex');
-            document.getElementById('submit-btn').disabled = true;
-        }
-
-        function submitAssignment() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-                // Simulate reload to submitted state
-                // window.location.href = window.location.pathname + '?status=submitted';
-                showSubmittedView();
-            }, 1000);
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/student.js"></script>
 </body>
 </html>

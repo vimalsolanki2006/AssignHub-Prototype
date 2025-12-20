@@ -6,10 +6,8 @@
     <title>AssignHub - Activity Logs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
 </head>
 <body class="min-h-screen bg-slate-50">
 
@@ -210,20 +208,31 @@
         </main>
     </div>
 
-    <script>
-        lucide.createIcons();
+    <!-- Profile Modal (Generic for now, or link to admin profile page/modal) -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
+        <!-- Reusing same profile modal structure as other pages if needed, 
+             or simply placeholder since logs page doesn't explicitly show it in snippets but sidebar links it.
+             I'll maintain valid HTML structure and link admin.js which handles toggleModal('profile-modal') if it exists.
+             For consistency, I will add the profile modal markup here too. -->
+        <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="profile-modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-slate-900">Admin Profile</h3>
+                <button onclick="toggleModal('profile-modal')" class="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
+                </button>
+            </div>
+            <!-- Profile content simplified -->
+             <div class="text-center">
+                <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">A</div>
+                <h3 class="font-bold text-slate-900">Admin User</h3>
+                <p class="text-slate-500 text-sm">admin@ddu.ac.in</p>
+            </div>
+        </div>
+    </div>
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/admin.js"></script>
 </body>
 </html>

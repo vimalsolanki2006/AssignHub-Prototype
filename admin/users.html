@@ -6,10 +6,8 @@
     <title>AssignHub - Admin Users</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
 </head>
 <body class="min-h-screen bg-slate-50">
 
@@ -311,59 +309,9 @@
         </div>
     </div>
 
-    <script>
-        lucide.createIcons();
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-             // Find content div by ID prefix conventions
-            let content;
-            if (modalId === 'add-user-modal') content = modal.querySelector('#modal-content');
-            else if (modalId === 'edit-user-modal') content = modal.querySelector('#edit-user-content');
-            else if (modalId === 'deactivate-modal') content = modal.querySelector('#deactivate-content');
-
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-                setTimeout(() => {
-                    content.classList.remove('scale-95', 'opacity-0');
-                    content.classList.add('scale-100', 'opacity-100');
-                }, 10);
-            } else {
-                content.classList.remove('scale-100', 'opacity-100');
-                content.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                }, 300);
-            }
-        }
-
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            // Close others
-            document.querySelectorAll('.dropdown-menu').forEach(d => {
-                if (d.id !== id) d.classList.add('hidden');
-            });
-            dropdown.classList.toggle('hidden');
-        }
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.dropdown-container')) {
-                 document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.add('hidden'));
-            }
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/admin.js"></script>
 </body>
 </html>

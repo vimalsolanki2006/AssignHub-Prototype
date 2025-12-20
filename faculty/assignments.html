@@ -6,10 +6,8 @@
     <title>AssignHub - Faculty Assignments</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
 </head>
 <body class="min-h-screen bg-slate-50">
 
@@ -215,39 +213,9 @@
         </main>
     </div>
 
-    <script>
-        lucide.createIcons();
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        function toggleDropdown(id) {
-            const menu = document.getElementById(id);
-            const allMenus = document.querySelectorAll('[id^="action-menu-"]');
-            
-            allMenus.forEach(m => {
-                if (m.id !== id) m.classList.add('hidden');
-            });
-
-            menu.classList.toggle('hidden');
-        }
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('button[onclick^="toggleDropdown"]') && !e.target.closest('[id^="action-menu-"]')) {
-                document.querySelectorAll('[id^="action-menu-"]').forEach(menu => {
-                    menu.classList.add('hidden');
-                });
-            }
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/faculty.js"></script>
 </body>
 </html>

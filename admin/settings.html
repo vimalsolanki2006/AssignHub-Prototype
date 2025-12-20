@@ -6,13 +6,8 @@
     <title>AssignHub - System Settings</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .tab-btn.active { border-bottom-color: #4f46e5; color: #4f46e5; }
-    </style>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
 </head>
 <body class="min-h-screen bg-slate-50">
 
@@ -115,12 +110,12 @@
 
             <!-- Tabs -->
             <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden animate-fade-in-up" style="animation-delay: 0.1s;">
-                <div class="flex border-b border-slate-100">
-                    <button onclick="switchTab('general')" class="tab-btn active px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="general">General</button>
-                    <button onclick="switchTab('submissions')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="submissions">Submissions</button>
-                    <button onclick="switchTab('notifications')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="notifications">Notifications</button>
-                    <button onclick="switchTab('security')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="security">Security</button>
-                    <button onclick="switchTab('archives')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors" data-tab="archives">Archives</button>
+                <div class="flex border-b border-slate-100 overflow-x-auto">
+                    <button onclick="switchTab('general')" class="tab-btn active px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-indigo-600 text-indigo-600 hover:text-indigo-600 transition-colors whitespace-nowrap" data-tab="general">General</button>
+                    <button onclick="switchTab('submissions')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors whitespace-nowrap" data-tab="submissions">Submissions</button>
+                    <button onclick="switchTab('notifications')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors whitespace-nowrap" data-tab="notifications">Notifications</button>
+                    <button onclick="switchTab('security')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors whitespace-nowrap" data-tab="security">Security</button>
+                    <button onclick="switchTab('archives')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-indigo-600 transition-colors whitespace-nowrap" data-tab="archives">Archives</button>
                 </div>
 
                 <div class="p-6">
@@ -162,7 +157,7 @@
                     </div>
 
                     <!-- Submissions Tab -->
-                    <div id="submissions" class="tab-content space-y-6">
+                    <div id="submissions" class="tab-content hidden space-y-6">
                         <div class="space-y-4">
                             <h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
                                 <i data-lucide="upload" class="w-5 h-5"></i> Submission Policies
@@ -185,7 +180,7 @@
                     </div>
 
                     <!-- Notifications Tab -->
-                    <div id="notifications" class="tab-content space-y-6">
+                    <div id="notifications" class="tab-content hidden space-y-6">
                         <div class="space-y-4">
                             <h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
                                 <i data-lucide="bell" class="w-5 h-5"></i> Notification Settings
@@ -210,7 +205,7 @@
                     </div>
 
                     <!-- Security Tab -->
-                    <div id="security" class="tab-content space-y-6">
+                    <div id="security" class="tab-content hidden space-y-6">
                         <div class="space-y-4">
                             <h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
                                 <i data-lucide="lock" class="w-5 h-5"></i> Security Settings
@@ -233,7 +228,7 @@
                     </div>
 
                     <!-- Archives Tab -->
-                    <div id="archives" class="tab-content space-y-6">
+                    <div id="archives" class="tab-content hidden space-y-6">
                          <div class="space-y-4">
                             <h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
                                 <i data-lucide="archive" class="w-5 h-5"></i> Data Archiving
@@ -282,39 +277,34 @@
             </div>
 
             <div class="mt-6 flex justify-end animate-fade-in-up" style="animation-delay: 0.2s;">
-                <button class="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-6 py-2 rounded-lg hover:from-indigo-600 hover:to-indigo-700 shadow-md transition-all">
+                <button onclick="Toast.show('Settings saved successfully!', 'success')" class="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-6 py-2 rounded-lg hover:from-indigo-600 hover:to-indigo-700 shadow-md transition-all">
                     <i data-lucide="save" class="w-4 h-4"></i> Save All Settings
                 </button>
             </div>
         </main>
     </div>
 
-    <script>
-        lucide.createIcons();
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="profile-modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-slate-900">Admin Profile</h3>
+                <button onclick="toggleModal('profile-modal')" class="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
+                </button>
+            </div>
+             <div class="text-center">
+                <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">A</div>
+                <h3 class="font-bold text-slate-900">Admin User</h3>
+                <p class="text-slate-500 text-sm">admin@ddu.ac.in</p>
+                 <button onclick="toggleModal('profile-modal')" class="mt-4 px-4 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 font-medium text-sm">Close</button>
+            </div>
+        </div>
+    </div>
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        function switchTab(tabId) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
-            // Show selected tab content
-            document.getElementById(tabId).classList.add('active');
-            // Add active class to selected button
-            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/admin.js"></script>
 </body>
 </html>

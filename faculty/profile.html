@@ -6,10 +6,8 @@
     <title>AssignHub - Faculty Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
 </head>
 <body class="min-h-screen bg-slate-50">
 
@@ -81,7 +79,7 @@
                             </button>
                         </div>
                         <h2 class="text-xl font-bold text-slate-900">Dr. Rajesh Kumar</h2>
-                        <p class="text-slate-500">Duplicate Associate Professor</p>
+                        <p class="text-slate-500">Associate Professor</p>
                         <p class="text-sm text-slate-400 mt-1">FAC2015042</p>
 
                         <div class="mt-6 pt-6 border-t border-slate-100 space-y-4 text-left">
@@ -148,49 +146,9 @@
         </main>
     </div>
 
-    <script>
-        lucide.createIcons();
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        function toggleEdit() {
-            const isEditing = document.getElementById('edit-btn').classList.contains('hidden');
-            const inputs = document.querySelectorAll('.profile-input');
-            const editBtn = document.getElementById('edit-btn');
-            const saveCancelBtns = document.getElementById('save-cancel-btns');
-
-            if (!isEditing) {
-                // Switch to Edit Mode
-                inputs.forEach(input => {
-                    input.disabled = false;
-                    input.classList.remove('bg-slate-50', 'text-slate-500');
-                    input.classList.add('bg-white', 'text-slate-900', 'focus:outline-none', 'focus:border-blue-500');
-                });
-                editBtn.classList.add('hidden');
-                saveCancelBtns.classList.remove('hidden');
-                saveCancelBtns.classList.add('flex');
-            } else {
-                // Switch to View Mode
-                inputs.forEach(input => {
-                    input.disabled = true;
-                    input.classList.add('bg-slate-50', 'text-slate-500');
-                    input.classList.remove('bg-white', 'text-slate-900', 'focus:outline-none', 'focus:border-blue-500');
-                });
-                editBtn.classList.remove('hidden');
-                saveCancelBtns.classList.add('hidden');
-                saveCancelBtns.classList.remove('flex');
-            }
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/faculty.js"></script>
 </body>
 </html>
