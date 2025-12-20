@@ -118,15 +118,15 @@
                 <div class="flex flex-wrap gap-4">
                     <div class="relative flex-1 min-w-[200px]">
                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                        <input type="text" placeholder="Search courses..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                        <input type="text" id="course-search" placeholder="Search courses..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
                     </div>
-                    <select class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                    <select id="semester-filter" class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
                         <option value="all">All Semesters</option>
                         <option value="3">Sem III</option>
                         <option value="4">Sem IV</option>
                         <option value="5">Sem V</option>
                     </select>
-                    <select class="w-48 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                    <select id="dept-filter" class="w-48 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
                         <option value="all">All Departments</option>
                         <option value="ce">Computer Eng</option>
                         <option value="it">Info Tech</option>
@@ -150,7 +150,7 @@
                         </thead>
                         <tbody class="divide-y divide-slate-100">
                             <!-- Row 1 -->
-                            <tr class="hover:bg-slate-50">
+                            <tr class="hover:bg-slate-50" data-semester="4" data-department="ce" data-search-terms="ce401 software engineering principles practices rajesh kumar computer eng">
                                 <td class="p-4">
                                     <div>
                                         <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold mb-1 inline-block">CE401</span>
@@ -188,7 +188,7 @@
                                 </td>
                             </tr>
                              <!-- Row 2 -->
-                             <tr class="hover:bg-slate-50">
+                             <tr class="hover:bg-slate-50" data-semester="5" data-department="ce" data-search-terms="ce405 web development computer eng">
                                 <td class="p-4">
                                     <div>
                                         <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold mb-1 inline-block">CE405</span>
@@ -200,13 +200,13 @@
                                 <td class="p-4">
                                     <div class="flex items-center gap-2">
                                         <i data-lucide="graduation-cap" class="w-4 h-4 text-slate-400"></i>
-                                        <span class="text-slate-600 text-sm">Dr. Rajesh Kumar</span>
+                                        <span class="text-slate-600 text-sm">Prof. Amit Patel</span>
                                     </div>
                                 </td>
-                                <td class="p-4 text-sm font-medium text-slate-900">45</td>
+                                <td class="p-4 text-sm font-medium text-slate-900">55</td>
                                 <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">Active</span></td>
                                 <td class="p-4 text-right">
-                                    <div class="relative dropdown-container">
+                                     <div class="relative dropdown-container">
                                         <button onclick="toggleDropdown('course-2-dropdown')" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 rounded focus:outline-none">
                                             <i data-lucide="more-vertical" class="w-4 h-4"></i>
                                         </button>
@@ -220,6 +220,68 @@
                                             <div class="h-px bg-slate-100 my-1"></div>
                                             <a href="#" onclick="toggleModal('archive-modal'); toggleDropdown('course-2-dropdown')" class="block px-4 py-2.5 text-sm text-amber-600 hover:bg-amber-50 transition-colors">
                                                 <i data-lucide="archive" class="w-4 h-4 inline mr-2"></i> Archive Course
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 3 (IT) -->
+                            <tr class="hover:bg-slate-50" data-semester="4" data-department="it" data-search-terms="it402 database management systems anjali mehta info tech">
+                                <td class="p-4">
+                                    <div>
+                                        <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold mb-1 inline-block">IT402</span>
+                                        <p class="font-medium text-slate-900 text-sm">Database Management</p>
+                                        <p class="text-xs text-slate-500">Information Technology</p>
+                                    </div>
+                                </td>
+                                <td class="p-4"><span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Sem IV</span></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="graduation-cap" class="w-4 h-4 text-slate-400"></i>
+                                        <span class="text-slate-600 text-sm">Prof. Anjali Mehta</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm font-medium text-slate-900">45</td>
+                                <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">Active</span></td>
+                                <td class="p-4 text-right">
+                                    <div class="relative dropdown-container">
+                                        <button onclick="toggleDropdown('course-3-dropdown')" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 rounded focus:outline-none">
+                                            <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                                        </button>
+                                        <div id="course-3-dropdown" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-slate-100 z-10 animate-fade-in origin-top-right">
+                                            <a href="#" class="block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">
+                                                <i data-lucide="edit-2" class="w-4 h-4 inline mr-2"></i> Edit Course
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 4 (Sem 3) -->
+                            <tr class="hover:bg-slate-50" data-semester="3" data-department="ce" data-search-terms="ce301 data structures computer eng">
+                                <td class="p-4">
+                                    <div>
+                                        <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold mb-1 inline-block">CE301</span>
+                                        <p class="font-medium text-slate-900 text-sm">Data Structures</p>
+                                        <p class="text-xs text-slate-500">Computer Engineering</p>
+                                    </div>
+                                </td>
+                                <td class="p-4"><span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Sem III</span></td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="graduation-cap" class="w-4 h-4 text-slate-400"></i>
+                                        <span class="text-slate-600 text-sm">Dr. R. K. Singh</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm font-medium text-slate-900">70</td>
+                                <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">Active</span></td>
+                                <td class="p-4 text-right">
+                                    <div class="relative dropdown-container">
+                                        <button onclick="toggleDropdown('course-4-dropdown')" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 rounded focus:outline-none">
+                                            <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                                        </button>
+                                        <div id="course-4-dropdown" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-slate-100 z-10 animate-fade-in origin-top-right">
+                                            <a href="#" class="block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">
+                                                <i data-lucide="edit-2" class="w-4 h-4 inline mr-2"></i> Edit Course
                                             </a>
                                         </div>
                                     </div>

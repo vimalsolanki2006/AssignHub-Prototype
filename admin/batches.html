@@ -116,22 +116,23 @@
             <!-- Filters -->
             <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
                 <div class="flex flex-wrap gap-4">
-                    <select class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                    <select id="year-filter" class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
                         <option value="all">2024-25</option>
-                        <option value="student">2023-24</option>
+                        <option value="23-24">2023-24</option>
                     </select>
-                    <select class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                    <select id="semester-filter" class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
                         <option value="all">All Semesters</option>
-                        <option value="active">Sem III</option>
-                        <option value="inactive">Sem IV</option>
+                        <option value="3">Sem III</option>
+                        <option value="4">Sem IV</option>
+                        <option value="5">Sem V</option>
                     </select>
                 </div>
             </div>
 
             <!-- Batches Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in-up" style="animation-delay: 0.2s;">
-                <!-- Batch Card 1 -->
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6">
+                <!-- Batch Card 1 (Sem 4) -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6" data-year="2024-25" data-semester="4" data-search-terms="batch b1 sem iv rajesh kumar">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">B1</div>
@@ -181,8 +182,8 @@
                     </div>
                 </div>
 
-                <!-- Batch Card 2 -->
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6">
+                <!-- Batch Card 2 (Sem 5) -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6" data-year="2024-25" data-semester="5" data-search-terms="batch b2 sem v amit patel">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">B2</div>
@@ -215,11 +216,11 @@
                         </div>
                         <div class="flex justify-between items-center text-sm">
                             <span class="text-slate-500">Semester</span>
-                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Sem IV</span>
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold">Sem V</span>
                         </div>
                          <div class="flex justify-between items-center text-sm">
                             <span class="text-slate-500">Students</span>
-                            <span class="font-semibold text-slate-900">30</span>
+                            <span class="font-semibold text-slate-900">28</span>
                         </div>
                          <div class="flex justify-between items-center text-sm">
                             <span class="text-slate-500">Courses</span>
@@ -227,18 +228,18 @@
                         </div>
                         <div class="pt-3 border-t border-slate-100">
                             <p class="text-xs text-slate-400 mb-1">Coordinator</p>
-                            <p class="text-sm font-medium text-slate-900">Dr. Rajesh Kumar</p>
+                            <p class="text-sm font-medium text-slate-900">Prof. Amit Patel</p>
                         </div>
                     </div>
                 </div>
 
-                 <!-- Batch Card 3 -->
-                 <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6">
+                 <!-- Batch Card 3 (Sem 3) -->
+                 <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all p-6" data-year="2023-24" data-semester="3" data-search-terms="batch a1 sem iii singh">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">B3</div>
+                            <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">A1</div>
                             <div>
-                                <h3 class="font-bold text-slate-900 text-lg">Batch B3</h3>
+                                <h3 class="font-bold text-slate-900 text-lg">Batch A1</h3>
                             </div>
                         </div>
                         <div class="relative dropdown-container">

@@ -118,16 +118,16 @@
                 <div class="flex flex-wrap gap-4">
                      <div class="relative flex-1 min-w-[200px]">
                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                         <input type="text" placeholder="Search logs..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                         <input type="text" id="log-search" placeholder="Search logs..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
                     </div>
-                    <select class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                    <select id="action-filter" class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
                         <option value="all">All Actions</option>
                         <option value="auth">Auth</option>
                         <option value="create">Create</option>
                         <option value="update">Update</option>
                         <option value="delete">Delete</option>
                     </select>
-                    <select class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
+                    <select id="role-filter" class="w-40 py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500">
                         <option value="all">All Roles</option>
                         <option value="student">Student</option>
                         <option value="faculty">Faculty</option>
@@ -150,8 +150,8 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
-                            <!-- Log 1 -->
-                            <tr class="hover:bg-slate-50">
+                            <!-- Log 1 (Auth, Student) -->
+                            <tr class="hover:bg-slate-50" data-action="auth" data-role="student" data-search-terms="user login vimal.solanki@ddu.ac.in">
                                 <td class="p-4">
                                     <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-blue-100 text-blue-600">
                                         <i data-lucide="log-in" class="w-4 h-4"></i>
@@ -167,8 +167,8 @@
                                 <td class="p-4 text-slate-500 text-sm">192.168.1.45</td>
                                 <td class="p-4 text-slate-500 text-sm">2025-01-15 10:30:25</td>
                             </tr>
-                            <!-- Log 2 -->
-                            <tr class="hover:bg-slate-50">
+                            <!-- Log 2 (Create, Faculty) -->
+                            <tr class="hover:bg-slate-50" data-action="create" data-role="faculty" data-search-terms="assignment created rajesh.kumar@ddu.ac.in lab 3">
                                 <td class="p-4">
                                     <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-green-100 text-green-600">
                                         <i data-lucide="plus" class="w-4 h-4"></i>
@@ -184,8 +184,8 @@
                                 <td class="p-4 text-slate-500 text-sm">Lab 3: UML Diagrams</td>
                                 <td class="p-4 text-slate-500 text-sm">2025-01-15 10:15:42</td>
                             </tr>
-                             <!-- Log 3 -->
-                             <tr class="hover:bg-slate-50">
+                             <!-- Log 3 (Update, Faculty) -->
+                             <tr class="hover:bg-slate-50" data-action="update" data-role="faculty" data-search-terms="submission evaluated rajesh.kumar@ddu.ac.in">
                                 <td class="p-4">
                                     <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-amber-100 text-amber-600">
                                         <i data-lucide="edit-2" class="w-4 h-4"></i>
@@ -198,8 +198,25 @@
                                         <span class="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded text-[10px] font-semibold mt-1 inline-block">Faculty</span>
                                     </div>
                                 </td>
-                                <td class="p-4 text-slate-500 text-sm">Lab 2 - Vimal Solanki</td>
-                                <td class="p-4 text-slate-500 text-sm">2025-01-15 09:45:18</td>
+                                <td class="p-4 text-slate-500 text-sm">Graded Assignment #124</td>
+                                <td class="p-4 text-slate-500 text-sm">2025-01-15 09:45:10</td>
+                            </tr>
+                            <!-- Log 4 (Delete, Admin) -->
+                             <tr class="hover:bg-slate-50" data-action="delete" data-role="admin" data-search-terms="user removed admin@ddu.ac.in user id 45">
+                                <td class="p-4">
+                                    <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-red-100 text-red-600">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </div>
+                                </td>
+                                <td class="p-4 font-medium text-slate-900">User Removed</td>
+                                <td class="p-4">
+                                    <div>
+                                        <p class="text-slate-600 text-sm">admin@ddu.ac.in</p>
+                                        <span class="bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded text-[10px] font-semibold mt-1 inline-block">Admin</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-slate-500 text-sm">Deleted User ID: 45</td>
+                                <td class="p-4 text-slate-500 text-sm">2025-01-14 16:20:05</td>
                             </tr>
                         </tbody>
                     </table>

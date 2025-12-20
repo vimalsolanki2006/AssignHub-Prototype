@@ -71,8 +71,6 @@ document.addEventListener('click', function (event) {
     if (!event.target.closest('.dropdown-container')) {
         document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.add('hidden'));
     }
-    // Close modal if clicked specific outside area (optional, usually handled by overlay click)
-    // if (event.target.id === 'mobile-overlay') { ... } 
 });
 
 // General Tab Switching (for pages like Settings)
@@ -98,7 +96,7 @@ function switchTab(tabId) {
     }
 
     // Activate button
-    const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
+    const activeBtn = document.querySelector(`.tab-btn[onclick="switchTab('${tabId}')"]`);
     if (activeBtn) {
         activeBtn.classList.add('active');
         activeBtn.style.borderBottomColor = '#4f46e5'; // indigo-600
@@ -106,69 +104,107 @@ function switchTab(tabId) {
     }
 }
 
-// Global Form Handler for Admin Pages
-document.addEventListener('DOMContentLoaded', () => {
-    // Handle all forms
-    document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
 
-            // Get submit button to show loading state
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn ? submitBtn.innerText : '';
+// Filtering Logic
+function setupFilters(config) {
+    const { itemSelector, filters } = config;
+    const filterElements = {};
 
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto"></i>';
-                lucide.createIcons();
+    // Cache filter inputs
+    for (const [id, setting] of Object.entries(filters)) {
+        const el = document.getElementById(id);
+        if (el) {
+            filterElements[id] = { el, ...setting };
+            el.addEventListener(setting.type === 'search' ? 'input' : 'change', applyFilters);
+        }
+    }
+
+    function applyFilters() {
+        const items = document.querySelectorAll(itemSelector);
+
+        items.forEach(item => {
+            let isVisible = true;
+
+            for (const [id, setting] of Object.entries(filterElements)) {
+                const { el, type, attr } = setting;
+                const value = el.value.toLowerCase();
+
+                // Skip if 'all' or empty search
+                if (value === 'all' || value === '') continue;
+
+                const itemValue = (item.getAttribute(attr) || '').toLowerCase();
+
+                if (type === 'search') {
+                    if (!itemValue.includes(value)) {
+                        isVisible = false;
+                        break;
+                    }
+                } else {
+                    if (itemValue !== value) {
+                        isVisible = false;
+                        break;
+                    }
+                }
             }
 
-            // Simulate API call
-            setTimeout(() => {
-                Toast.show('Changes saved successfully!', 'success');
-
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = originalText;
-                }
-
-                // If form is in a modal, close it
-                const modal = form.closest('[id$="-modal"]') || form.closest('.fixed');
-                if (modal) {
-                    toggleModal(modal.id);
-                }
-            }, 1000);
+            if (isVisible) {
+                item.classList.remove('hidden');
+                // Ensure layout doesn't break for grids if 'hidden' is just display:none
+                item.style.display = '';
+            } else {
+                item.classList.add('hidden');
+                item.style.display = 'none'; // Explicitly hide
+            }
         });
-    });
-    // Admin Filter Logic
-    const userSearch = document.getElementById('user-search');
-    const roleFilter = document.getElementById('role-filter');
-    const statusFilter = document.getElementById('status-filter');
-    const usersTableBody = document.getElementById('users-table-body');
+    }
+}
 
-    if (userSearch && usersTableBody) {
-        function filterUsers() {
-            const rows = usersTableBody.querySelectorAll('tr');
-            const term = userSearch.value.toLowerCase();
-            const role = roleFilter ? roleFilter.value : 'all';
-            const status = statusFilter ? statusFilter.value : 'all';
+// Initialize Filters
+document.addEventListener('DOMContentLoaded', () => {
+    // Users Page
+    if (document.getElementById('user-search')) {
+        setupFilters({
+            itemSelector: 'tbody tr[data-role]', // Target rows with data attributes
+            filters: {
+                'user-search': { type: 'search', attr: 'data-search-terms' },
+                'role-filter': { type: 'select', attr: 'data-role' },
+                'status-filter': { type: 'select', attr: 'data-status' }
+            }
+        });
+    }
 
-            rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                const matchesSearch = text.includes(term);
-                const matchesRole = role === 'all' || text.includes(role);
-                const matchesStatus = status === 'all' || text.includes(status);
+    // Courses Page
+    if (document.getElementById('course-search')) {
+        setupFilters({
+            itemSelector: 'tbody tr[data-semester]',
+            filters: {
+                'course-search': { type: 'search', attr: 'data-search-terms' },
+                'semester-filter': { type: 'select', attr: 'data-semester' },
+                'dept-filter': { type: 'select', attr: 'data-department' }
+            }
+        });
+    }
 
-                if (matchesSearch && matchesRole && matchesStatus) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
+    // Batches Page
+    if (document.getElementById('year-filter')) {
+        setupFilters({
+            itemSelector: 'div[data-year]', // Batch Cards
+            filters: {
+                'year-filter': { type: 'select', attr: 'data-year' },
+                'semester-filter': { type: 'select', attr: 'data-semester' }
+            }
+        });
+    }
 
-        userSearch.addEventListener('input', filterUsers);
-        if (roleFilter) roleFilter.addEventListener('change', filterUsers);
-        if (statusFilter) statusFilter.addEventListener('change', filterUsers);
+    // Logs Page
+    if (document.getElementById('log-search')) {
+        setupFilters({
+            itemSelector: 'tbody tr[data-action]',
+            filters: {
+                'log-search': { type: 'search', attr: 'data-search-terms' },
+                'action-filter': { type: 'select', attr: 'data-action' },
+                'role-filter': { type: 'select', attr: 'data-role' }
+            }
+        });
     }
 });
